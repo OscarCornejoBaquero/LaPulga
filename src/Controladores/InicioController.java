@@ -14,6 +14,8 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class InicioController implements Initializable {
+    //Declaracion de las diferentes variables de los stages
+    
     @FXML
     private Button btnIniciar;
     @FXML
@@ -26,18 +28,26 @@ public class InicioController implements Initializable {
     Alertas alerta = new Alertas();
     Stage stage = new Stage();
     Stages stages = new Stages();
+    
+    
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        //Prueba del GITHUB
         System.out.println("TodoBien");
         System.out.println("Prueba de Oscar");
     }    
 
+    //Boton de Inicias Sesion @OscarCornejo
     @FXML
     private void iniciarSesion(ActionEvent event) {
+        //Acciones del boton Inicio @OscarCornejo
         String usuario,pass;
         usuario=txtUsuario.getText();
         pass=txtPass.getText();
+        
+        //Condicion si el usuario y contraseña estan vacios @OscarCornejo
         if(usuario.equals("")&&pass.equals("")){
          alert = alerta.alerta("ERROR", "HA OCURRIDO UN ERROR CRITICO", "Informacion sobre el Error", "ERROR");
             stage = (Stage) alert.getDialogPane().getScene().getWindow();
@@ -50,14 +60,17 @@ public class InicioController implements Initializable {
             alert.showAndWait();
             txtUsuario.requestFocus();
         }else{
-           if(usuario.equals(pass)){
+        //Aqui se debe de declarar las opciones de coneccion de base de datos @OscarCornejo 
+        
+        
+            if(usuario.equals(pass)){
                alert = alerta.alerta("LOGIN", "ACCESO CORRECTO", "Bienvenido: " + " " + " " + " ", "INFORMATION");
                     stage = (Stage) alert.getDialogPane().getScene().getWindow();
                     stage.getIcons().add(new Image("Imagenes/llave.png"));
                     alert.showAndWait();
                
                
-               
+        //Caso contrario si el usuario y contraseña son incorrectos @OscarCornejo
            }else{
                alert = alerta.alerta("LOGIN", "ACCESO DENEGADO", "USUARIO O CONTRASEÑA INCORRECTOS", "ERROR");
                     stage = (Stage) alert.getDialogPane().getScene().getWindow();
