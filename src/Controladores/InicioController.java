@@ -7,23 +7,33 @@ package Controladores;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 
-/**
- * FXML Controller class
- *
- * @author oscar
- */
+
 public class InicioController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private Button btnIniciar;
+    @FXML
+    private Button bntCancelar;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         System.out.println("TodoBien");
         System.out.println("Prueba de Oscar");
     }    
+
+    @FXML
+    private void iniciarSesion(ActionEvent event) {
+    }
+
+    @FXML
+    private void cancelarInicio(ActionEvent event) {
+         System.exit(0);
+    }
     
 }
