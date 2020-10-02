@@ -23,6 +23,7 @@ public class InicioController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         System.out.println("TodoBien");
+        System.out.println("Prueba de Oscar");
     }    
     
 }
