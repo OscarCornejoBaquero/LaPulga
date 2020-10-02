@@ -1,0 +1,10 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+    
+}
+#fondo{
+    -fx-background-color: linear-gradient(to left, #708090,#5F9EA0,#778899);
+}
