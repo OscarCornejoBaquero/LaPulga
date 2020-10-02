@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -22,7 +23,7 @@ public class LaPulga extends Application {
     @Override
     public void start(Stage stage) throws Exception {
     stage.setResizable(false);
-        //stage.initStyle(StageStyle.UNDECORATED);
+        stage.initStyle(StageStyle.UNDECORATED);
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(LaPulga.class.getResource("/Vistas/Inicio.fxml"));
