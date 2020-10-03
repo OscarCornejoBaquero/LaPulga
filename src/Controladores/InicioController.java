@@ -1,9 +1,19 @@
 package Controladores;
+import BaseDatos.Autentificacion;
+import BaseDatos.Conexion;
+import Objetos.Usuarios;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -28,28 +38,27 @@ public class InicioController implements Initializable {
     Alertas alerta = new Alertas();
     Stage stage = new Stage();
     Stages stages = new Stages();
-    
-    
+    Conexion conexion = new Conexion();
+    Usuarios usuarios;
+    Autentificacion autentificacion = new Autentificacion();
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //Prueba del GITHUB
-        System.out.println("TodoBien");
-        System.out.println("Prueba de Oscar");
+        
     }    
 
     //Boton de Inicias Sesion @OscarCornejo
     @FXML
     private void iniciarSesion(ActionEvent event) {
         //Acciones del boton Inicio @OscarCornejo
-        String usuario,pass;
-        usuario=txtUsuario.getText();
-        pass=txtPass.getText();
+        String usuario, pass;
+        usuario = txtUsuario.getText();
+        pass = txtPass.getText();
         
         //Condicion si el usuario y contraseña estan vacios @OscarCornejo
-        if(usuario.equals("")&&pass.equals("")){
-         alert = alerta.alerta("ERROR", "HA OCURRIDO UN ERROR CRITICO", "Informacion sobre el Error", "ERROR");
+        if (usuario.equals("") && pass.equals("")) {
+            alert = alerta.alerta("ERROR", "HA OCURRIDO UN ERROR CRITICO", "Informacion sobre el Error", "ERROR");
             stage = (Stage) alert.getDialogPane().getScene().getWindow();
             String error = "NO INGRESO DATOS EN USUARIO Y CONTRASEÑA";
             Label label2 = new Label(error);
@@ -59,25 +68,41 @@ public class InicioController implements Initializable {
             alert.getDialogPane().setExpandableContent(expContent);
             alert.showAndWait();
             txtUsuario.requestFocus();
-        }else{
-        //Aqui se debe de declarar las opciones de coneccion de base de datos @OscarCornejo 
-        
-        
-            if(usuario.equals(pass)){
-               alert = alerta.alerta("LOGIN", "ACCESO CORRECTO", "Bienvenido: " + " " + " " + " ", "INFORMATION");
+            txtUsuario.setText("");
+            txtPass.setText("");
+        } else {
+            //Aqui se debe de declarar las opciones de coneccion de base de datos @OscarCornejo 
+            usuarios=autentificacion.autentificar(usuario, pass);
+            if (usuarios.isEstado()) {
+                try {
+                    alert = alerta.alerta("LOGIN", "ACCESO CORRECTO", "Bienvenido: " +usuarios.getNombre() + " " +usuarios.getApellido(), "INFORMATION");
                     stage = (Stage) alert.getDialogPane().getScene().getWindow();
                     stage.getIcons().add(new Image("Imagenes/llave.png"));
                     alert.showAndWait();
-               
-               
-        //Caso contrario si el usuario y contraseña son incorrectos @OscarCornejo
-           }else{
-               alert = alerta.alerta("LOGIN", "ACCESO DENEGADO", "USUARIO O CONTRASEÑA INCORRECTOS", "ERROR");
-                    stage = (Stage) alert.getDialogPane().getScene().getWindow();
-                    stage.getIcons().add(new Image("Imagenes/llave.png"));
-                    alert.show();
-           }
-               
+                    txtUsuario.requestFocus();
+                    txtUsuario.setText("");
+                    txtPass.setText("");
+                    
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Vistas/Principal.fxml"));
+                    Parent root1 = (Parent) fxmlLoader.load();
+                    stage = stages.nuevoStage(root1, "Sistema de Lavadero de Perros ->La Pulga Limpia<- Correo Activo: "+usuarios.getCorreo(), "/Imagenes/iconoLaPulga.png");
+                    stage.initOwner(((Node)event.getSource()).getScene().getWindow());
+                    stage.show();
+                    
+                } catch (IOException ex) {
+                    Logger.getLogger(InicioController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                //Caso contrario si el usuario y contraseña son incorrectos @OscarCornejo
+                alert = alerta.alerta("LOGIN", "ACCESO DENEGADO", "USUARIO O CONTRASEÑA INCORRECTOS", "ERROR");
+                stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(new Image("Imagenes/llave.png"));
+                alert.show();
+                txtUsuario.requestFocus();
+                txtUsuario.setText("");
+                txtPass.setText("");
+            }
+
         }
     }
 
