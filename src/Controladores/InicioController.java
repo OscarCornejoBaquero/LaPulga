@@ -5,6 +5,8 @@ import Objetos.Usuarios;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,7 +43,7 @@ public class InicioController implements Initializable {
     Conexion conexion = new Conexion();
     Usuarios usuarios;
     Autentificacion autentificacion = new Autentificacion();
-    
+    public String datos;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -82,13 +84,15 @@ public class InicioController implements Initializable {
                     txtUsuario.requestFocus();
                     txtUsuario.setText("");
                     txtPass.setText("");
-                    
+                    datos = (usuarios.getNombre()+" "+ usuarios.getApellido());
+                    autentificacion.usuarioActivo(usuarios.getNombre(), usuarios.getApellido(), usuarios.getCorreo());
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Vistas/Principal.fxml"));
                     Parent root1 = (Parent) fxmlLoader.load();
-                    stage = stages.nuevoStage(root1, "Sistema de Lavadero de Perros ->La Pulga Limpia<- Correo Activo: "+usuarios.getCorreo(), "/Imagenes/iconoLaPulga.png");
+                    stage = stages.nuevoStage(root1, "Lavadero de Perros ->La Pulga Limpia<- Usuario Activo: "+datos, "/Imagenes/iconoLaPulga.png");
                     stage.initOwner(((Node)event.getSource()).getScene().getWindow());
                     stage.show();
                     
+                    System.out.println(datos);
                 } catch (IOException ex) {
                     Logger.getLogger(InicioController.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -110,5 +114,7 @@ public class InicioController implements Initializable {
     private void cancelarInicio(ActionEvent event) {
          System.exit(0);
     }
+ 
+
     
 }

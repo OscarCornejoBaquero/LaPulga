@@ -1,14 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.PrincipalController">
-    <stylesheets>
-        <URL value="@/Controladores/principal.css"/>
-    </stylesheets>
+<AnchorPane id="fondo" prefHeight="600.0" prefWidth="800.0" stylesheets="@../Css/inicio.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.PrincipalController">
+   <children>
+      <SplitPane id="fondo" dividerPositions="0.21644295302013422" layoutX="2.0" orientation="VERTICAL" prefHeight="598.0" prefWidth="800.0" stylesheets="@../Css/inicio.css">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <ImageView fitHeight="126.0" fitWidth="627.0" layoutX="-1.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Imagenes/banner.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="586.0" layoutY="12.0" text="Hora de Inicio de Sesión">
+                     <font>
+                        <Font name="Cambria Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="hora" layoutX="586.0" layoutY="34.0" prefHeight="26.0" prefWidth="204.0">
+                     <font>
+                        <Font name="Cambria Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="584.0" layoutY="74.0" text="Email  de Usuario Activo">
+                     <font>
+                        <Font name="Cambria Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="email" layoutX="584.0" layoutY="82.0" prefHeight="26.0" prefWidth="204.0" textFill="#0126c9" underline="true">
+                     <font>
+                        <Font name="Cambria Bold" size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="439.0" prefWidth="798.0">
+               <children>
+                  <ImageView fx:id="btnClientes" fitHeight="170.0" fitWidth="150.0" layoutX="77.0" layoutY="273.0" onMouseClicked="#accionClientes" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Imagenes/botonClientes.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="btnLavados" fitHeight="170.0" fitWidth="150.0" layoutX="339.0" layoutY="46.0" onMouseClicked="#accionLavados" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Imagenes/botonLavados.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="btnFactura" fitHeight="170.0" fitWidth="150.0" layoutX="77.0" layoutY="46.0" onMouseClicked="#accionFacturas" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Imagenes/botonfactura.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="btnCotizacion" fitHeight="170.0" fitWidth="150.0" layoutX="606.0" layoutY="47.0" onMouseClicked="#accionCotizacion" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Imagenes/botonCotizacion.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="btnReportes" fitHeight="170.0" fitWidth="150.0" layoutX="340.0" layoutY="273.0" onMouseClicked="#accionReportes" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Imagenes/botonReportes.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="btnAdministracion" fitHeight="170.0" fitWidth="150.0" layoutX="608.0" layoutY="273.0" onMouseClicked="#accionAdministracion" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Imagenes/botonAdministracion.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
 </AnchorPane>

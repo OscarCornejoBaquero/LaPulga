@@ -20,6 +20,7 @@ public class Stages {
                    stage.getIcons().add(new Image(imgURL));
                    stage.initModality(Modality.WINDOW_MODAL); 
                    stage.setResizable(false);
+                   
         return stage;
         
         

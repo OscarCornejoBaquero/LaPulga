@@ -12,12 +12,21 @@ public class Usuarios {
         this.estado = estado;
     }
 
+    public Usuarios() {
+    }
+
     public Usuarios(int id, String nombre, String apellido, String correo, boolean estado) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
         this.estado = estado;
+    }
+
+    public Usuarios(String nombre, String apellido, String correo) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.correo = correo;
     }
 
     public Usuarios(String nombre, String apellido, String correo, boolean estado) {

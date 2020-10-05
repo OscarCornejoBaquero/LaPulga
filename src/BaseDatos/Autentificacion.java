@@ -45,4 +45,36 @@ public class Autentificacion {
 
     }
 
+    public void usuarioActivo (String nombre, String apellido,String correo){
+        try {
+
+            String sql ="update usuarioActivo set nombre=?,apellido=?,CORREO=? where id_Usuario = 1";
+            pst = con.prepareStatement(sql);
+            pst.setString(1, nombre);
+            pst.setString(2,apellido);
+            pst.setString(3, correo);
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Autentificacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    public Usuarios datosInicio(){
+         try {
+        pst = (PreparedStatement) con.prepareStatement("select *from usuarioActivo");
+            
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                String nombre = rs.getString(2);
+                String apellido = rs.getString(3);
+                String correo = rs.getString(4);
+                usuarios = new Usuarios(nombre, apellido, correo);
+            } 
+        } catch (SQLException ex) {
+            Logger.getLogger(Autentificacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return usuarios;
+    }
+    
 }

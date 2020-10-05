@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="fondo" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.ClientesController">
+    <stylesheets>
+        <URL value="@/Css/clientes.css" />
+    </stylesheets>
+   <children>
+      <TabPane id="fondo" layoutX="-5.0" layoutY="-1.0" prefHeight="600.0" prefWidth="820.0" rotateGraphic="true" stylesheets="@../Css/clientes.css" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="rClientes" closable="false" styleClass="..\Css\clientes.css" text="Registo y Consulta Clientes">
+               <content>
+                  <VBox prefHeight="503.0" prefWidth="801.0">
+                     <children>
+                        <Pane prefHeight="227.0" prefWidth="820.0">
+                           <children>
+                              <Label layoutX="23.0" layoutY="14.0" text="Seleccione: " textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="cmbEstado" layoutX="97.0" layoutY="7.0" onAction="#seleccionarTipo" prefWidth="150.0" promptText="Estado del Cliente" />
+                              <Label layoutX="279.0" layoutY="14.0" text="Cedula / RUC: " textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtCedula" layoutX="372.0" layoutY="10.0" onAction="#consultarCliente" promptText="Ingrese la Cedula o RUC" />
+                              <Label layoutX="68.0" layoutY="57.0" text="Nombre:s " textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="342.0" layoutY="57.0" text="Apellidos: " textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="579.0" layoutY="57.0" text="Teléfono:  " textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="67.0" layoutY="101.0" text="Domicilio: " textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="579.0" layoutY="101.0" text="Correo:" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtNombre" layoutX="139.0" layoutY="53.0" prefHeight="25.0" prefWidth="192.0" promptText="Usuario" />
+                              <TextField fx:id="txtApellido" layoutX="401.0" layoutY="53.0" prefHeight="25.0" prefWidth="175.0" promptText="Usuario" />
+                              <TextField fx:id="txtTelefono" layoutX="639.0" layoutY="53.0" promptText="09090909090" />
+                              <TextField fx:id="txtDireccion" layoutX="139.0" layoutY="97.0" prefHeight="25.0" prefWidth="420.0" promptText="Ciudad, Sector Manzana y Solar" />
+                              <TextField fx:id="txtCorreo" layoutX="639.0" layoutY="97.0" promptText="nombre@correo.com" />
+                              <Button fx:id="btnActualizarCliente" layoutX="172.0" layoutY="169.0" mnemonicParsing="false" onAction="#actualizarCliente" text="Actualizar Datos del Cliente" />
+                              <Button fx:id="btnNuevoCliente" layoutX="552.0" layoutY="169.0" mnemonicParsing="false" onAction="#agregarCliente" text="Agregar Nuevo Cliente" />
+                           </children></Pane>
+                        <TableView fx:id="tblClientes" prefHeight="220.0" prefWidth="820.0">
+                          <columns>
+                            <TableColumn fx:id="colCedula" prefWidth="70.0" text="Cedula" />
+                            <TableColumn fx:id="colNombres" prefWidth="145.0" text="Nombres" />
+                              <TableColumn fx:id="colApellidos" prefWidth="124.0" text="Apellidos" />
+                              <TableColumn fx:id="colDireccion" prefWidth="232.0" text="Domicilio" />
+                              <TableColumn fx:id="colTelefono" prefWidth="84.0" text="Teléfono" />
+                              <TableColumn fx:id="colCorreo" prefWidth="162.0" text="Correo" />
+                          </columns>
+                        </TableView>
+                        <Pane prefHeight="81.0" prefWidth="820.0">
+                           <children>
+                              <Button fx:id="btnEliminar" layoutX="244.0" layoutY="24.0" mnemonicParsing="false" onAction="#eliminarCliente" text="Eliminar Cliente" />
+                              <Button fx:id="btnLimpiar" layoutX="512.0" layoutY="24.0" mnemonicParsing="false" onAction="#limpiarPantalla" text="Limpiar Datos" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </VBox>
+               </content></Tab>
+          <Tab fx:id="rMascotas" text="Registro y Consulta de Mascotas">
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Pane prefHeight="243.0" prefWidth="820.0">
+                           <children>
+                              <Label layoutX="31.0" layoutY="22.0" text="Cedula / RUC: " textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtCedulaConsulta" layoutX="127.0" layoutY="18.0" onAction="#consultaMascotaClientes" promptText="Ingrese la Cedula o RUC" />
+                              <Label layoutX="31.0" layoutY="67.0" text="Nombre de la Mascota: " textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="406.0" layoutY="66.0" text="Descripción de la Mascota:" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtNombreMascota" layoutX="176.0" layoutY="63.0" prefHeight="25.0" prefWidth="211.0" promptText="Nombre de la Mascota" />
+                              <TextField fx:id="txtDescripcionMascota" layoutX="572.0" layoutY="61.0" prefHeight="25.0" prefWidth="226.0" promptText="Descripción de la Mascota" />
+                              <Label layoutX="213.0" layoutY="114.0" text="Año de Nacimiento de la Mascota:" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <DatePicker fx:id="txtAnio" layoutX="428.0" layoutY="110.0" promptText="Seleccione Fecha" />
+                              <Button fx:id="btnActualizarMascota" layoutX="139.0" layoutY="168.0" mnemonicParsing="false" onAction="#actualizarDatosMascotas" text="Actualizar Datos de la Mascota" />
+                              <Button fx:id="btnNuevaMascota" layoutX="512.0" layoutY="168.0" mnemonicParsing="false" onAction="#nuevaMascota" prefHeight="25.0" prefWidth="193.0" text="Nueva Mascota" />
+                           </children>
+                        </Pane>
+                        <TableView prefHeight="222.0" prefWidth="820.0" stylesheets="@../Css/clientes.css">
+                          <columns>
+                            <TableColumn prefWidth="101.66666412353516" text="  Identificación &#10;      Mascota" />
+                            <TableColumn prefWidth="197.33333587646484" text="Dueño" />
+                              <TableColumn prefWidth="193.3333282470703" text="Nombre de la Mascota" />
+                              <TableColumn prefWidth="183.0" text="Descripción de la Mascota" />
+                              <TableColumn prefWidth="142.99996948242188" text="Fecha de Nacimiento" />
+                          </columns>
+                        </TableView>
+                        <Pane prefHeight="53.0" prefWidth="820.0">
+                           <children>
+                              <Button fx:id="btnEliminarMascota" layoutX="180.0" layoutY="12.0" mnemonicParsing="false" onAction="#eliminarMascota" text="Eliminar Mascota" />
+                              <Button fx:id="btnLimpiarPantalla2" layoutX="506.0" layoutY="12.0" mnemonicParsing="false" onAction="#limpiarVentanaMascotas" text="Limpiar Pantalla" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </VBox>
+               </content></Tab>
+   
+          
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
