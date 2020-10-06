@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.LavadosController">
+    <stylesheets>
+        <URL value="@/Css/lavados.css" />
+    </stylesheets>
+   <children>
+      <TabPane prefHeight="600.0" prefWidth="797.0" stylesheets="@../Css/lavados.css" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Agendamiento de Lavados">
+               <content>
+                  <VBox prefHeight="528.0" prefWidth="699.0">
+                     <children>
+                        <Pane prefHeight="317.0" prefWidth="797.0">
+                           <children>
+                              <Label layoutX="234.0" layoutY="12.0" text="Agendamiento de Lavados">
+                                 <font>
+                                    <Font name="Arial Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="14.0" layoutY="46.0" text="Código Lavado" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Black" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="200.0" layoutY="46.0" text="Cedula Cliente:" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Black" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="454.0" layoutY="46.0" text="Seleccionar Mascota:" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Black" size="12.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtCodigoLavado" editable="false" layoutX="117.0" layoutY="42.0" prefHeight="25.0" prefWidth="74.0" />
+                              <TextField fx:id="txtCedulaCliente" layoutX="302.0" layoutY="43.0" onAction="#consultaCliente" prefHeight="25.0" prefWidth="141.0" promptText="Ingresar y dar ENTER" />
+                              <ComboBox fx:id="cmbMascota" layoutX="606.0" layoutY="40.0" prefHeight="25.0" prefWidth="163.0" promptText="Seleccione" />
+                              <Label layoutX="22.0" layoutY="104.0" text="Fecha de Lavado" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Black" size="12.0" />
+                                 </font>
+                              </Label>
+                              <DatePicker fx:id="fechaLavado" layoutX="140.0" layoutY="100.0" prefHeight="25.0" prefWidth="141.0" promptText="Seleccione" />
+                              <Label layoutX="299.0" layoutY="104.0" text="Hora del Lavado:" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Black" size="12.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="cmbHora" layoutX="417.0" layoutY="100.0" prefHeight="25.0" prefWidth="99.0" promptText="Seleccione" />
+                              <Label layoutX="550.0" layoutY="104.0" text="Código Batea" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Black" size="12.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="codigoBatea" layoutX="644.0" layoutY="100.0" promptText="Ingrese" />
+                              <CheckBox fx:id="cheJabon" layoutX="76.0" layoutY="192.0" mnemonicParsing="false" text="Jabón" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </CheckBox>
+                              <Label layoutX="299.0" layoutY="148.0" text="Lista de Productos Disponibles para el Lavado" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Black" size="12.0" />
+                                 </font>
+                              </Label>
+                              <CheckBox fx:id="cheShampoo" layoutX="148.0" layoutY="192.0" mnemonicParsing="false" text="Shampoo" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="chePerfume" layoutX="242.0" layoutY="192.0" mnemonicParsing="false" text="Perfume" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="cheTratamiento" layoutX="330.0" layoutY="192.0" mnemonicParsing="false" text="Tratamiento Capilar" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="cheAniparasitarios" layoutX="468.0" layoutY="192.0" mnemonicParsing="false" text="Antiparásitos" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="cheAcondicionador" layoutX="580.0" layoutY="192.0" mnemonicParsing="false" text="Sprays Acondicionador" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </CheckBox>
+                              <Label layoutX="236.0" layoutY="239.0" text="Empleado a Cargo:" textFill="WHITE" />
+                              <ComboBox fx:id="cmbEmpleado" layoutX="372.0" layoutY="234.0" prefWidth="150.0" promptText="Seleccione" />
+                              <Button fx:id="btnAgendar" layoutX="210.0" layoutY="281.0" mnemonicParsing="false" onAction="#agendarLavado" text="Agendar Lavado" />
+                              <Button fx:id="btnNuevoLavado" layoutX="463.0" layoutY="281.0" mnemonicParsing="false" onAction="#nuevoLavado" text="Nuevo Lavado" />
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="225.0" prefWidth="797.0">
+                           <children>
+                              <TableView fx:id="twAgendamientoLavado" prefHeight="158.0" prefWidth="795.0">
+                                <columns>
+                                  <TableColumn fx:id="coCodLavado" prefWidth="103.0" text="Cod. Lavado" />
+                                  <TableColumn fx:id="coCliente" prefWidth="107.0" text="Cliente" />
+                                    <TableColumn fx:id="coMascota" prefWidth="114.0" text="Mascota" />
+                                    <TableColumn fx:id="coFechaLavado" prefWidth="103.33332824707031" text="Fecha de Lavado" />
+                                    <TableColumn fx:id="coHoraLavado" prefWidth="71.33334350585938" text="    Hora &#10;de Lavado" />
+                                    <TableColumn fx:id="coProductos" prefWidth="178.33331298828125" text="Productos a Usar" />
+                                    <TableColumn fx:id="coEmpleado" prefWidth="116.66668701171875" text="Empleado" />
+                                </columns>
+                              </TableView>
+                              <Button fx:id="btnEliminarLavado" layoutX="471.0" layoutY="178.0" mnemonicParsing="false" onAction="#eliminarLavado" text="Elliminar Lavado" />
+                              <Button fx:id="btnModificarLavado" layoutX="214.0" layoutY="180.0" mnemonicParsing="false" onAction="#modificarLavado" text="Modificar Lavado" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </VBox>
+               </content>
+            </Tab>
+          <Tab text="Consulta de Lavados">
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Pane prefHeight="202.0" prefWidth="797.0">
+                           <children>
+                              <Label layoutX="269.0" layoutY="20.0" text="Consulta de Lavados">
+                                 <font>
+                                    <Font name="Arial Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="60.0" layoutY="60.0" text="Consulta por Cliente" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtCodigoCLiente" layoutX="53.0" layoutY="93.0" onAction="#consultaLavadorCliente" prefHeight="25.0" prefWidth="177.0" promptText="Digite la Cedula y de Enter" />
+                              <Label layoutX="509.0" layoutY="60.0" text="Consulta por Fecha" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="357.0" layoutY="95.0" text="Desde:" textFill="#fff7f7">
+                                 <font>
+                                    <Font name="Arial Black" size="14.0" />
+                                 </font>
+                              </Label>
+                              <DatePicker fx:id="fechaDesde" layoutX="417.0" layoutY="93.0" prefHeight="25.0" prefWidth="139.0" promptText="Seleccione" />
+                              <Label layoutX="568.0" layoutY="97.0" text="Hasta:" textFill="#fff7f7">
+                                 <font>
+                                    <Font name="Arial Black" size="14.0" />
+                                 </font>
+                              </Label>
+                              <DatePicker fx:id="fechaHasta" layoutX="622.0" layoutY="93.0" prefHeight="25.0" prefWidth="146.0" promptText="Seleccione" />
+                              <Button fx:id="btnConsultarLavadoFecha" layoutX="536.0" layoutY="141.0" mnemonicParsing="false" text="Consultar" />
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="342.0" prefWidth="797.0">
+                           <children>
+                              <TableView fx:id="twLavadosmascotas" prefHeight="339.0" prefWidth="797.0">
+                                 <columns>
+                                    <TableColumn fx:id="coLavadoGeneral" prefWidth="103.0" text="Cod. Lavado" />
+                                    <TableColumn fx:id="coCLienteGeneral" prefWidth="107.0" text="Cliente" />
+                                    <TableColumn fx:id="coMascotaGeneral" prefWidth="114.0" text="Mascota" />
+                                    <TableColumn fx:id="coFechaGeneral" prefWidth="103.33332824707031" text="Fecha de Lavado" />
+                                    <TableColumn fx:id="coHoraGeneral" prefWidth="71.33334350585938" text="    Hora &#10;de Lavado" />
+                                    <TableColumn fx:id="coProductosGeneral" prefWidth="178.33331298828125" text="Productos a Usar" />
+                                    <TableColumn fx:id="coEmpleadosGeneral" prefWidth="116.66668701171875" text="Empleado" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </Pane>
+                     </children>
+                  </VBox>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

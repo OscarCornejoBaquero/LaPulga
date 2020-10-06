@@ -42,12 +42,10 @@ public class Autentificacion {
             Logger.getLogger(Autentificacion.class.getName()).log(Level.SEVERE, null, ex);
         }
         return usuarios;
-
     }
 
     public void usuarioActivo (String nombre, String apellido,String correo){
         try {
-
             String sql ="update usuarioActivo set nombre=?,apellido=?,CORREO=? where id_Usuario = 1";
             pst = con.prepareStatement(sql);
             pst.setString(1, nombre);
@@ -63,7 +61,6 @@ public class Autentificacion {
     public Usuarios datosInicio(){
          try {
         pst = (PreparedStatement) con.prepareStatement("select *from usuarioActivo");
-            
             rs = pst.executeQuery();
             if (rs.next()) {
                 String nombre = rs.getString(2);

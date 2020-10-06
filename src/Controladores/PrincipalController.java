@@ -77,6 +77,16 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void accionLavados(MouseEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Vistas/Lavados.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            stage = stages.nuevoStage(root1, "Lavadero de Perros ->La Pulga Limpia<- Usuario Activo: "+usuarios.getNombre()+" "+usuarios.getApellido(), "/Imagenes/iconoLaPulga.png");
+            stage.initOwner(((Node)event.getSource()).getScene().getWindow());
+            stage.show();
+            
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
