@@ -5,6 +5,7 @@
  */
 package lapulga;
 
+import BaseDatos.Conexion;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,12 +20,14 @@ import javafx.stage.StageStyle;
  * @author oscar
  */
 public class LaPulga extends Application {
-    
+    Conexion con = new Conexion();
     @Override
     public void start(Stage stage) throws Exception {
     stage.setResizable(false);
         stage.initStyle(StageStyle.UNDECORATED);
-        try {
+        if(con.tablaUsuarios()){
+         try {
+            
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(LaPulga.class.getResource("/Vistas/Inicio.fxml"));
             Pane ventana = (Pane) loader.load();
@@ -35,7 +38,23 @@ public class LaPulga extends Application {
             stage.show();
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }   
+        }else{
+            try {
+            
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(LaPulga.class.getResource("/Vistas/Inicio.fxml"));
+            Pane ventana = (Pane) loader.load();
+            Scene scene = new Scene(ventana);
+
+            stage.setScene(scene);
+            stage.getIcons().add(new Image("/Imagenes/iconoLaPulga.png"));
+            stage.show();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }   
         }
+        
     }
 
     /**
