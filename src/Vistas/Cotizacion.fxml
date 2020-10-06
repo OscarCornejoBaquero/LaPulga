@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="621.0" prefWidth="800.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.CotizacionController">
+    <stylesheets>
+        <URL value="@/Css/cotizacion.css" />
+    </stylesheets>
+   <children>
+      <TabPane prefHeight="621.0" prefWidth="800.0" stylesheets="@../Css/cotizacion.css" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="COTIZACIÓN">
+               <content>
+                  <VBox id="VBox" prefHeight="600.0" prefWidth="800.0" stylesheets="@../Css/cotizacion.css">
+                     <children>
+                        <Pane prefHeight="245.0" prefWidth="800.0">
+                           <children>
+                              <TextField fx:id="txtCedula" layoutX="130.0" layoutY="39.0" onAction="#consultaCliente" promptText="Ingrese la Cedula" />
+                              <TextField fx:id="txtNombreCliente" layoutX="476.0" layoutY="40.0" promptText="Consumidor Final" />
+                              <Label layoutX="333.0" layoutY="3.0" text="Cotización" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="25.0" layoutY="41.0" text="Cedula Cliente:" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="303.0" layoutY="42.0" text="Nombre  del Cliente:" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="25.0" layoutY="86.0" text="Seleccione el Tipo de Producto a Cotizar: " textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="cmbTipoProducto" layoutX="302.0" layoutY="82.0" onAction="#seleccionProducto" prefHeight="25.0" prefWidth="197.0" promptText="Seleccione" />
+                              <TextField fx:id="txtPrecioProducto" editable="false" layoutX="646.0" layoutY="82.0" prefHeight="25.0" prefWidth="120.0" promptText="\$$$" />
+                              <Label layoutX="580.0" layoutY="86.0" text="Precio:" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="btnAgregarTipo" layoutX="383.0" layoutY="123.0" mnemonicParsing="false" text="Agregar Tipo de Producto" />
+                              <Label layoutX="25.0" layoutY="168.0" text="Adicionales:" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="cmbAdicionales" layoutX="121.0" layoutY="164.0" onAction="#seleccionAdicional" prefWidth="150.0" promptText="Seleccione" />
+                              <Label layoutX="321.0" layoutY="168.0" text="Precio:" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtPrecioAdicional" editable="false" layoutX="371.0" layoutY="164.0" prefHeight="25.0" prefWidth="97.0" promptText="\$$$" />
+                              <Button fx:id="btnAgregarAdicional" layoutX="528.0" layoutY="164.0" mnemonicParsing="false" text="Agregar Adicionales" />
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="370.0" prefWidth="800.0">
+                           <children>
+                              <TableView fx:id="twCotizacion" layoutY="-1.0" prefHeight="202.0" prefWidth="800.0">
+                                <columns>
+                                  <TableColumn fx:id="coCodigo" prefWidth="87.0" text="Código" />
+                                  <TableColumn fx:id="coDescripcion" prefWidth="342.0" text="Descripción" />
+                                    <TableColumn fx:id="coCantidad" prefWidth="91.0" text="Cantidad" />
+                                    <TableColumn fx:id="coPrecioUnitario" prefWidth="108.0" text="Precio Unitario" />
+                                    <TableColumn fx:id="coSubTotal" prefWidth="171.0" text="SubTotal" />
+                                </columns>
+                              </TableView>
+                              <Label layoutX="470.0" layoutY="212.0" text="SubTotal" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="470.0" layoutY="243.0" text="IVA 12%" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="470.0" layoutY="278.0" text="Descuento  %" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="470.0" layoutY="312.0" text="Total a Pagar" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtSubTotal" editable="false" layoutX="637.0" layoutY="208.0" promptText="\$$$$$$" />
+                              <TextField fx:id="txtIva" editable="false" layoutX="637.0" layoutY="239.0" promptText="\$$$$$$" />
+                              <TextField fx:id="txtDescuento" editable="false" layoutX="637.0" layoutY="274.0" promptText="\$$$$$$" />
+                              <TextField fx:id="txtTotalPagar" editable="false" layoutX="637.0" layoutY="308.0" promptText="\$$$$$$" />
+                              <TextField fx:id="txtCantidadDescuento" layoutX="560.0" layoutY="274.0" onAction="#generarDescuento" prefHeight="25.0" prefWidth="44.0" promptText="#" />
+                              <Button fx:id="btnImprimerCotizacion" layoutX="60.0" layoutY="266.0" mnemonicParsing="false" text="Imprimir Cotización" />
+                              <Button fx:id="btnNuevaCotizacion" layoutX="264.0" layoutY="266.0" mnemonicParsing="false" text="Nueva Cotización" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </VBox>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
