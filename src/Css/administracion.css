@@ -1,0 +1,37 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+.tab-label { 
+    -fx-content-display: top; 
+    
+} 
+.tab-pane { 
+    -fx-tab-min-height: 90; 
+    -fx-tab-max-height: 90; 
+    -fx-background-color: linear-gradient(to left, #9CB17E,#7EB184,#7EB1A2);
+} 
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: white;    
+    -fx-size: 45;
+    -fx-border-color: -fx-box-border;
+    -fx-border-width: 0 1 3 0;
+    -fx-border-insets: 0;
+    overflow: hidden;
+      -fx-wrap-text: true;  /*estableces que el texto dentro del label de la celda pueda ser divido en partes*/
+
+}
+.tab-label { 
+    -fx-content-display: top; 
+      -fx-size: 45;
+      align-content: center;
+} 
+.tab-pane { 
+    -fx-tab-min-height: 50; 
+    -fx-tab-max-height: 50; 
+    -fx-size: 45;
+    
+}
