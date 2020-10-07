@@ -8,22 +8,24 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Conexion {
+
     private static final String URL = "jdbc:oracle:thin:@localhost:1521:BDProyecto";
     private static final String USUARIO = "system";
     private static final String CLAVE = "Proyecto-2020";
-   
-    public Connection conectar(){
+
+    public Connection conectar() {
         Connection conn = null;
         try {
             DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
-            conn = DriverManager.getConnection(URL,USUARIO,CLAVE);  
+            conn = DriverManager.getConnection(URL, USUARIO, CLAVE);
             //System.out.println("Todo OK");
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
             //System.out.println("Fqallo");
         }
         return conn;
-}
+    }
+
     public boolean tablaUsuarios() {
         boolean resp = true;
         Connection conn = conectar();
@@ -33,23 +35,35 @@ public class Conexion {
             stmt.execute();
             stmt = conn.prepareStatement("alter table UsuariosPrueba add constraint Usuarios_PK primary key (id_Usuario)");
             stmt.execute();
-           stmt = conn.prepareStatement(" insert all into UsuariosPrueba (id_Usuario, usuario, pass, nombre, apellido, correo, fecha_nacimiento)\n" +
-"       values (1,'oscar','123456','Oscar Leonardo','Cornejo Baquero','oscar.cornejob@ug.edu.ec',to_date('07/08/1989', 'DD/MM/YYYY'))\n" +
-"       \n" +
-"       into UsuariosPrueba (id_Usuario, usuario, pass, nombre, apellido, correo, fecha_nacimiento)\n" +
-"       values (2,'salvador','123456','Salvador Isai','Ordoñez Loor','salvador.ordoñezb@ug.edu.ec',to_date('04/04/2000', 'DD/MM/YYYY'))\n" +
-"       \n" +
-"        into UsuariosPrueba (id_Usuario, usuario, pass, nombre, apellido, correo, fecha_nacimiento)\n" +
-"       values (3,'michael','123456','Michael Andres','Goya Medina','michael.goyam@ug.edu.ec',to_date('07/09/1994', 'DD/MM/YYYY'))\n" +
-"select * from dual");
-            stmt.execute();  
+            stmt = conn.prepareStatement(" insert all into UsuariosPrueba (id_Usuario, usuario, pass, nombre, apellido, correo, fecha_nacimiento)\n"
+                    + "       values (1,'oscar','123456','Oscar Leonardo','Cornejo Baquero','oscar.cornejob@ug.edu.ec',to_date('07/08/1989', 'DD/MM/YYYY'))\n"
+                    + "       \n"
+                    + "       into UsuariosPrueba (id_Usuario, usuario, pass, nombre, apellido, correo, fecha_nacimiento)\n"
+                    + "       values (2,'salvador','123456','Salvador Isai','Ordoñez Loor','salvador.ordoñezb@ug.edu.ec',to_date('04/04/2000', 'DD/MM/YYYY'))\n"
+                    + "       \n"
+                    + "        into UsuariosPrueba (id_Usuario, usuario, pass, nombre, apellido, correo, fecha_nacimiento)\n"
+                    + "       values (3,'michael','123456','Michael Andres','Goya Medina','michael.goyam@ug.edu.ec',to_date('07/09/1994', 'DD/MM/YYYY'))\n"
+                    + "select * from dual");
+            stmt.execute();
             stmt = conn.prepareStatement("commit");
             stmt.execute();
-           
-            resp=true;
+
+            stmt = conn.prepareStatement("create table usuarioActivo(\n"
+                    + "id_Usuario number,\n"
+                    + "nombre varchar2(75),\n"
+                    + "apellido varchar2(75),\n"
+                    + "correo varchar2(50),\n"
+                    + "fechaIngreso date\n"
+                    + ");\n"
+                    + "\n"
+                    + "alter table UsuarioActivo\n"
+                    + "add constraint Usuario_PK primary key (id_Usuario);");
+            stmt.execute();
+
+            resp = true;
         } catch (SQLException sqle) {
-            
-            resp=false;
+
+            resp = false;
         }
 
         return resp;
