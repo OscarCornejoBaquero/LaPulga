@@ -31,6 +31,7 @@ public class Conexion {
         Connection conn = conectar();
         PreparedStatement stmt = null;
         try {
+
             stmt = conn.prepareStatement("create table UsuariosPrueba(id_Usuario number,usuario varchar2(50),pass varchar2(50),nombre varchar2(50),apellido varchar2(50),correo varchar2(50),fecha_nacimiento date)");
             stmt.execute();
             stmt = conn.prepareStatement("alter table UsuariosPrueba add constraint Usuarios_PK primary key (id_Usuario)");
@@ -47,22 +48,22 @@ public class Conexion {
             stmt.execute();
             stmt = conn.prepareStatement("commit");
             stmt.execute();
-
-            stmt = conn.prepareStatement("create table usuarioActivo(\n"
-                    + "id_Usuario number,\n"
-                    + "nombre varchar2(75),\n"
-                    + "apellido varchar2(75),\n"
-                    + "correo varchar2(50),\n"
-                    + "fechaIngreso date\n"
-                    + ");\n"
-                    + "\n"
-                    + "alter table UsuarioActivo\n"
-                    + "add constraint Usuario_PK primary key (id_Usuario);");
+            stmt = conn.prepareStatement("create table usuarioActivo( id_Usuario number,nombre varchar2(75),apellido varchar2(75),correo varchar2(50),fechaIngreso date)");
             stmt.execute();
+            System.out.println("20-4");
+            stmt = conn.prepareStatement("alter table UsuarioActivo add constraint Usuario_PK primary key (id_Usuario)");
+            stmt.execute();
+            System.out.println("aqui");
+            stmt = conn.prepareStatement("insert all into usuarioActivo(id_Usuario,Nombre,Apellido,Correo,Fechaingreso)VALUES (1,'','','',to_date('07/09/1994', 'DD/MM/YYYY')) select *from dual ");
+            stmt.execute();
+            System.out.println("Si");
+            stmt = conn.prepareStatement("commit");
+            stmt.execute();
+            System.out.println("posit");
 
             resp = true;
         } catch (SQLException sqle) {
-
+            System.out.println(sqle);
             resp = false;
         }
 
