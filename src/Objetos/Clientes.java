@@ -6,21 +6,32 @@ public class Clientes {
     private String nombre;
     private String apellido;
     private String telefono;
+    private String convencional;
     private String domicilio;
     private String correo;
 
     public Clientes() {
     }
 
-    public Clientes(String cedula, String nombre, String apellido, String telefono, String domicilio, String correo) {
+    public Clientes(String cedula, String nombre, String apellido, String telefono, String convencional, String domicilio, String correo) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
+        this.convencional = convencional;
         this.domicilio = domicilio;
         this.correo = correo;
     }
 
+    public String getConvencional() {
+        return convencional;
+    }
+
+    public void setConvencional(String convencional) {
+        this.convencional = convencional;
+    }
+
+ 
     public String getCedula() {
         return cedula;
     }

@@ -20,7 +20,7 @@
         <URL value="@/Css/clientes.css" />
     </stylesheets>
    <children>
-      <TabPane id="fondo" layoutX="-5.0" layoutY="-1.0" prefHeight="600.0" prefWidth="820.0" rotateGraphic="true" stylesheets="@../Css/clientes.css" tabClosingPolicy="UNAVAILABLE">
+      <TabPane id="fondo" fx:id="tabGeneral" layoutX="-5.0" layoutY="-1.0" prefHeight="600.0" prefWidth="820.0" rotateGraphic="true" stylesheets="@../Css/clientes.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="rClientes" closable="false" styleClass="..\Css\clientes.css" text="Registo y Consulta Clientes">
                <content>
@@ -67,20 +67,30 @@
                               </Label>
                               <TextField fx:id="txtNombre" layoutX="139.0" layoutY="53.0" prefHeight="25.0" prefWidth="192.0" promptText="Usuario" />
                               <TextField fx:id="txtApellido" layoutX="401.0" layoutY="53.0" prefHeight="25.0" prefWidth="175.0" promptText="Usuario" />
-                              <TextField fx:id="txtTelefono" layoutX="639.0" layoutY="53.0" promptText="09090909090" />
+                              <TextField fx:id="txtTelefono" layoutX="639.0" layoutY="10.0" promptText="09090909090" />
                               <TextField fx:id="txtDireccion" layoutX="139.0" layoutY="97.0" prefHeight="25.0" prefWidth="420.0" promptText="Ciudad, Sector Manzana y Solar" />
                               <TextField fx:id="txtCorreo" layoutX="639.0" layoutY="97.0" promptText="nombre@correo.com" />
-                              <Button fx:id="btnActualizarCliente" layoutX="172.0" layoutY="169.0" mnemonicParsing="false" onAction="#actualizarCliente" text="Actualizar Datos del Cliente" />
-                              <Button fx:id="btnNuevoCliente" layoutX="552.0" layoutY="169.0" mnemonicParsing="false" onAction="#agregarCliente" text="Agregar Nuevo Cliente" />
-                           </children></Pane>
-                        <TableView fx:id="tblClientes" prefHeight="220.0" prefWidth="820.0">
+                              <Button fx:id="btnActualizarCliente" layoutX="45.0" layoutY="169.0" mnemonicParsing="false" onAction="#actualizarCliente" text="Actualizar Datos del Cliente" />
+                              <Button fx:id="btnNuevoCliente" layoutX="502.0" layoutY="169.0" mnemonicParsing="false" onAction="#agregarCliente" text="Agregar Nuevo Cliente" />
+                              <Button fx:id="btnNuevoMascota" layoutX="681.0" layoutY="169.0" mnemonicParsing="false" onAction="#agregarMascotaTAB" text="Agregar Mascota" />
+                              <TextField fx:id="txtTelefonoConvencional" layoutX="641.0" layoutY="53.0" promptText="042259374" />
+                              <Label layoutX="581.0" layoutY="14.0" text="Celular:" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="btnActivarTxt" layoutX="226.0" layoutY="169.0" mnemonicParsing="false" onAction="#editarCliente" text="Habilitar Edición" />
+                           </children>
+                        </Pane>
+                        <TableView fx:id="tblClientes" prefHeight="220.0" prefWidth="831.0">
                           <columns>
-                            <TableColumn fx:id="colCedula" prefWidth="70.0" text="Cedula" />
-                            <TableColumn fx:id="colNombres" prefWidth="145.0" text="Nombres" />
-                              <TableColumn fx:id="colApellidos" prefWidth="124.0" text="Apellidos" />
-                              <TableColumn fx:id="colDireccion" prefWidth="232.0" text="Domicilio" />
-                              <TableColumn fx:id="colTelefono" prefWidth="84.0" text="Teléfono" />
-                              <TableColumn fx:id="colCorreo" prefWidth="162.0" text="Correo" />
+                            <TableColumn fx:id="colCedula" prefWidth="57.0" text="Cedula" />
+                            <TableColumn fx:id="colNombres" prefWidth="103.0" text="Nombres" />
+                              <TableColumn fx:id="colApellidos" prefWidth="94.0" text="Apellidos" />
+                              <TableColumn fx:id="colDireccion" prefWidth="247.0" text="Domicilio" />
+                              <TableColumn fx:id="colTelefono" prefWidth="99.0" text="Teléfono" />
+                              <TableColumn fx:id="colConvencional" prefWidth="107.66668701171875" text="Convencional" />
+                              <TableColumn fx:id="colCorreo" prefWidth="106.6666259765625" text="Correo" />
                           </columns>
                         </TableView>
                         <Pane prefHeight="81.0" prefWidth="820.0">
