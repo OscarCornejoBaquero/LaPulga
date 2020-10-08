@@ -42,7 +42,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="439.0" prefWidth="798.0">
                <children>
-                  <ImageView fx:id="btnClientes" fitHeight="170.0" fitWidth="150.0" layoutX="77.0" layoutY="273.0" onMouseClicked="#accionClientes" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="btnClientes" fitHeight="170.0" fitWidth="150.0" layoutX="79.0" layoutY="46.0" onMouseClicked="#accionClientes" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Imagenes/botonClientes.png" />
                      </image>
@@ -52,22 +52,17 @@
                         <Image url="@../Imagenes/botonLavados.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="btnFactura" fitHeight="170.0" fitWidth="150.0" layoutX="77.0" layoutY="46.0" onMouseClicked="#accionFacturas" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Imagenes/botonfactura.png" />
-                     </image>
-                  </ImageView>
                   <ImageView fx:id="btnCotizacion" fitHeight="170.0" fitWidth="150.0" layoutX="606.0" layoutY="47.0" onMouseClicked="#accionCotizacion" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Imagenes/botonCotizacion.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="btnReportes" fitHeight="170.0" fitWidth="150.0" layoutX="340.0" layoutY="273.0" onMouseClicked="#accionReportes" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="btnReportes" fitHeight="170.0" fitWidth="150.0" layoutX="187.0" layoutY="273.0" onMouseClicked="#accionReportes" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Imagenes/botonReportes.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="btnAdministracion" fitHeight="170.0" fitWidth="150.0" layoutX="608.0" layoutY="273.0" onMouseClicked="#accionAdministracion" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="btnAdministracion" fitHeight="170.0" fitWidth="150.0" layoutX="472.0" layoutY="273.0" onMouseClicked="#accionAdministracion" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Imagenes/botonAdministracion.png" />
                      </image>

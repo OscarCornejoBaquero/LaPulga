@@ -21,9 +21,9 @@
         <URL value="@/Css/lavados.css" />
     </stylesheets>
    <children>
-      <TabPane prefHeight="600.0" prefWidth="797.0" stylesheets="@../Css/lavados.css" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabGeneral" prefHeight="600.0" prefWidth="797.0" stylesheets="@../Css/lavados.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Agendamiento de Lavados">
+          <Tab fx:id="tabAgendameinto" text="Agendamiento de Lavados">
                <content>
                   <VBox prefHeight="528.0" prefWidth="699.0">
                      <children>
@@ -34,12 +34,12 @@
                                     <Font name="Arial Bold" size="24.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="14.0" layoutY="46.0" text="Código Lavado" textFill="WHITE">
+                              <Label layoutX="6.0" layoutY="17.0" text="Código Lavado" textFill="WHITE">
                                  <font>
                                     <Font name="Arial Black" size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="200.0" layoutY="46.0" text="Cedula Cliente:" textFill="WHITE">
+                              <Label layoutX="200.0" layoutY="55.0" text="Cedula Cliente:" textFill="WHITE">
                                  <font>
                                     <Font name="Arial Black" size="12.0" />
                                  </font>
@@ -49,8 +49,8 @@
                                     <Font name="Arial Black" size="12.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtCodigoLavado" editable="false" layoutX="117.0" layoutY="42.0" prefHeight="25.0" prefWidth="74.0" />
-                              <TextField fx:id="txtCedulaCliente" layoutX="302.0" layoutY="43.0" onAction="#consultaCliente" prefHeight="25.0" prefWidth="141.0" promptText="Ingresar y dar ENTER" />
+                              <TextField fx:id="txtCodigoLavado" editable="false" layoutX="120.0" layoutY="13.0" prefHeight="25.0" prefWidth="74.0" />
+                              <TextField fx:id="txtCedulaCliente" layoutX="302.0" layoutY="52.0" onAction="#consultaCliente" prefHeight="25.0" prefWidth="141.0" promptText="Ingresar y dar ENTER" />
                               <ComboBox fx:id="cmbMascota" layoutX="606.0" layoutY="40.0" prefHeight="25.0" prefWidth="163.0" promptText="Seleccione" />
                               <Label layoutX="22.0" layoutY="104.0" text="Fecha de Lavado" textFill="WHITE">
                                  <font>
@@ -109,6 +109,7 @@
                               <ComboBox fx:id="cmbEmpleado" layoutX="372.0" layoutY="234.0" prefWidth="150.0" promptText="Seleccione" />
                               <Button fx:id="btnAgendar" layoutX="210.0" layoutY="281.0" mnemonicParsing="false" onAction="#agendarLavado" text="Agendar Lavado" />
                               <Button fx:id="btnNuevoLavado" layoutX="463.0" layoutY="281.0" mnemonicParsing="false" onAction="#nuevoLavado" text="Nuevo Lavado" />
+                              <Button fx:id="btnConsul" layoutX="114.0" layoutY="53.0" mnemonicParsing="false" onAction="#consultarClien" text="Button" />
                            </children>
                         </Pane>
                         <Pane prefHeight="225.0" prefWidth="797.0">
@@ -132,7 +133,46 @@
                   </VBox>
                </content>
             </Tab>
-          <Tab text="Consulta de Lavados">
+            <Tab fx:id="tabCliente" text="Consulta Clientes">
+               <content>
+                  <VBox prefHeight="528.0" prefWidth="699.0">
+                     <children>
+                        <Pane prefHeight="211.0" prefWidth="797.0">
+                           <children>
+                              <Label layoutX="277.0" layoutY="14.0" text="Consulta Clientes">
+                                 <font>
+                                    <Font name="Arial Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="39.0" layoutY="81.0" text="Cedula Cliente:" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Black" size="12.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtCedulaCliente1" layoutX="160.0" layoutY="77.0" onAction="#consultaCliente" prefHeight="25.0" prefWidth="141.0" promptText="Ingresar y dar ENTER" />
+                              <Button fx:id="btnAgendarLavado" layoutX="399.0" layoutY="77.0" mnemonicParsing="false" onAction="#agendarLavadoCliente" prefHeight="25.0" prefWidth="175.0" text="Agendar Lavado" />
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="321.0" prefWidth="797.0">
+                           <children>
+                              <TableView fx:id="tblClientes" layoutX="-7.0" prefHeight="318.0" prefWidth="797.0">
+                                 <columns>
+                                    <TableColumn fx:id="colCedula" prefWidth="93.0" text="Cedula" />
+                                    <TableColumn fx:id="colNombres" prefWidth="98.0" text="Nombres" />
+                                    <TableColumn fx:id="colApellidos" prefWidth="121.0" text="Apellidos" />
+                                    <TableColumn fx:id="colDireccion" prefWidth="211.0" text="Domicilio" />
+                                    <TableColumn fx:id="colTelefono" prefWidth="104.0" text="Teléfono" />
+                                    <TableColumn fx:id="colConvencional" prefWidth="81.0" text="Convencional" />
+                                    <TableColumn fx:id="colCorreo" prefWidth="106.6666259765625" text="Correo" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </Pane>
+                     </children>
+                  </VBox>
+               </content>
+            </Tab>
+          <Tab fx:id="tabConsultaAgendameinto" text="Consulta de Lavados">
                <content>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>

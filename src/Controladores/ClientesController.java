@@ -133,7 +133,15 @@ public class ClientesController implements Initializable {
     private TableColumn coFechaMascota;
     @FXML
     private ComboBox<String> cmbTipoConsulta;
-
+    @FXML
+    private Button btnConsultaGeneral;
+    int idMascota;
+    Mascota mascotaPersonalizada= new Mascota();
+    @FXML
+    private Button btnAgregarMascota;
+    private String cedulaAModificar;
+    @FXML
+    private Button btnConsutltaPersonalizad;
     //Inicio de la ventana
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -145,6 +153,7 @@ public class ClientesController implements Initializable {
         inicializarTablaClientes();
         rellenarTabla();
         inicioMascotas();
+        inicializarTablaMascotas();
         seleccionarItemTablaClientes();
         comboTipoConsulta();
         txtCedula.setOnKeyTyped(event -> SoloNumerosEnteros(event));
@@ -201,6 +210,7 @@ private void comboTipoConsulta() {
         obs = clienteBD.consulta();
         this.tblClientes.setItems(obs);
     }
+    
 
     public void SoloNumerosEnteros(KeyEvent keyEvent) {
         try {
@@ -289,9 +299,24 @@ private void comboTipoConsulta() {
 
     @FXML
     private void actualizarCliente(ActionEvent event) {
-
-        clienteBD.modificarCliente(txtCedula.getText(), txtNombre.getText(), txtApellido.getText(),
+        boolean resp;
+        resp=clienteBD.modificarCliente(txtCedula.getText(), txtNombre.getText(), txtApellido.getText(),
                 txtTelefonoConvencional.getText(), txtTelefono.getText(), txtDireccion.getText(), txtCorreo.getText());
+        if (resp) {
+
+            alert = alerta.alerta("Cliente ", null, "Cliente Modificado Correctamente", "INFORMATION");
+            alert.getDialogPane().getScene().getWindow();
+            ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+            alert.showAndWait();
+
+        } else {
+            alert = alerta.alerta("Cliente ", null, "Error al Guardar Cliente", "ERROR");
+            alert.getDialogPane().getScene().getWindow();
+            ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+            alert.showAndWait();
+
+        }
+        
         rellenarTabla();
     }
 
@@ -319,23 +344,36 @@ private void comboTipoConsulta() {
 
     @FXML
     private void eliminarCliente(ActionEvent event) {
-        clienteBD.eliminarCliente(txtCedula.getText());
+        boolean resp;
+        resp=clienteBD.eliminarCliente(txtCedula.getText());
+        if(resp){
         alert = alerta.alerta("Cliente ", null, "Cliente Eliminado Correctamente", "INFORMATION");
         alert.getDialogPane().getScene().getWindow();
         ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
         alert.showAndWait();
         rellenarTabla();
-
+        }
+        else{
+            alert = alerta.alerta("Cliente ", null, "Error al Eliminar el Cliente Tiene mascoras Agregadas  ||", "ERROR");
+            alert.getDialogPane().getScene().getWindow();
+            ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+            alert.showAndWait();
+        }
     }
 
     @FXML
     private void agregarMascotaTAB(ActionEvent event) {
         tabGeneral.getSelectionModel().select(rMascotas);
         txtCedulaConsulta.setText(txtCedula.getText());
-        rellenarTablaPerro();
+       rellenarTabla2();
 
     }
-
+private void rellenarTabla2() {
+        ObservableList<Mascota> obs = null;
+        perroBD = new PerroBD();
+        obs = perroBD.consultaMascotasIndividual(txtCedulaConsulta.getText());
+        this.tblMascotas.setItems(obs);
+    }
     @FXML
     private void limpiarPantalla(ActionEvent event) {
         txtNombre.setText("");
@@ -356,6 +394,8 @@ private void comboTipoConsulta() {
         ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
         alert.showAndWait();
         reutilizarControles(false, false, false, false, false, false, false, true, false, false);
+        cedulaAModificar=txtCedula.getText();
+        txtCedula.setDisable(true);
     }
 
     /*
@@ -369,7 +409,7 @@ private void comboTipoConsulta() {
         txtAnio.setDisable(true);
         btnActualizarMascota.setDisable(true);
         btnNuevaMascota.setDisable(true);
-        inicializarTablaMascotas();
+        seleccionarItemTablaMascota();
     }
 
     @FXML
@@ -393,6 +433,21 @@ private void comboTipoConsulta() {
 
     @FXML
     private void actualizarDatosMascotas(ActionEvent event) {
+       boolean resp;
+       resp= perroBD.modificarPerro(idMascota, txtNombreMascota.getText(), txtDescripcionMascota.getText());
+       if(resp){
+           alert = alerta.alerta("Mascotas ", null, "Mascota ACTUALIZADA Correctamente", "INFORMATION");
+            alert.getDialogPane().getScene().getWindow();
+            ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+            alert.showAndWait();
+       }else {
+            alert = alerta.alerta("Mascota ", null, "Error al ACTUALIZAR Mascota", "ERROR");
+            alert.getDialogPane().getScene().getWindow();
+            ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+            alert.showAndWait();
+
+        }
+         rellenarTablaPerro();
     }
 
     @FXML
@@ -408,21 +463,50 @@ private void comboTipoConsulta() {
             alert.showAndWait();
 
         } else {
-            alert = alerta.alerta("Mascota ", null, "Error al Guardar Mascota", "ERROR");
+            alert = alerta.alerta("Mascota ", null, "Error al Guardar Mascota NOmbre de Mascota Duplicado / No Existe Registro", "ERROR");
             alert.getDialogPane().getScene().getWindow();
             ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
             alert.showAndWait();
 
         }
-        rellenarTablaPerro();
+rellenarTabla2();
     }
 
     @FXML
     private void eliminarMascota(ActionEvent event) {
+        boolean resp;
+        resp=perroBD.eliminarCliente(idMascota);
+            if(resp){
+           alert = alerta.alerta("Mascotas ", null, "Mascota ACTUALIZADA Correctamente", "INFORMATION");
+            alert.getDialogPane().getScene().getWindow();
+            ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+            alert.showAndWait();
+       }else {
+            alert = alerta.alerta("Mascota ", null, "Error al ACTUALIZAR Mascota", "ERROR");
+            alert.getDialogPane().getScene().getWindow();
+            ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+            alert.showAndWait();
+
+        }
+        
+        rellenarTablaPerro();
     }
 
     @FXML
     private void limpiarVentanaMascotas(ActionEvent event) {
+        txtCedulaConsulta.setText("");
+        txtNombreMascota.setText("");
+        txtDescripcionMascota.setText("");
+        cmbTipoConsulta.setDisable(false);
+        btnConsutltaPersonalizad.setDisable(true);
+        btnConsultaGeneral.setDisable(false);
+        btnNuevaMascota.setDisable(true);
+        btnAgregarMascota.setDisable(false);
+        txtCedulaConsulta.setDisable(true);
+        txtNombreMascota.setDisable(true);
+        txtDescripcionMascota.setDisable(true);
+        txtAnio.setDisable(true);
+        
     }
 
     private void rellenarTablaPerro() {
@@ -435,7 +519,7 @@ private void comboTipoConsulta() {
     private void inicializarTablaMascotas() {
         MascotaOL = FXCollections.observableArrayList();
         this.coIdMascota.setCellValueFactory(new PropertyValueFactory<Mascota, Integer>("id"));
-        this.coIdCliente.setCellValueFactory(new PropertyValueFactory<Mascota, Integer>("dueño"));
+        this.coIdCliente.setCellValueFactory(new PropertyValueFactory<Mascota, String>("nombreDueño"));
         this.coNombreMascota.setCellValueFactory(new PropertyValueFactory<Mascota, String>("nombreMascota"));
         this.coDescripcion.setCellValueFactory(new PropertyValueFactory<Mascota, String>("descripcion"));
         this.coFechaMascota.setCellValueFactory(new PropertyValueFactory<Mascota, String>("fecha"));
@@ -450,16 +534,184 @@ private void comboTipoConsulta() {
                 if (tblMascotas.getSelectionModel().getSelectedItem() != null) {
                     Mascota mascota = tblMascotas.getSelectionModel().getSelectedItem();
                     txtCedulaConsulta.setDisable(true);
-                    //txtCedulaConsulta.setText(clientes.getCedula());
+                    idMascota=mascota.getId();
                     txtNombreMascota.setText(mascota.getNombreMascota());
                     txtDescripcionMascota.setText(mascota.getDescripcion());
 
                     btnNuevaMascota.setDisable(false);
                     btnActualizarMascota.setDisable(false);
                     reutilizarControles(true, true, true, true, true, true, true, true, true, false);
+                    txtNombreMascota.setDisable(false);
+                    txtDescripcionMascota.setDisable(false);
                 }
             }
         });
+    }
+
+    @FXML
+    private void consultaMascotasGeneral(ActionEvent event) {
+        rellenarTablaPerro();
+        
+    }
+
+    @FXML
+    private void agregarMascota(ActionEvent event) {
+        txtNombreMascota.setDisable(false);
+        txtDescripcionMascota.setDisable(false);
+        txtAnio.setDisable(false);
+        txtCedulaConsulta.setDisable(false);
+        btnActualizarMascota.setDisable(true);
+        btnNuevaMascota.setDisable(false);
+        btnConsultaGeneral.setDisable(true);
+        cmbTipoConsulta.setDisable(true);
+        btnConsutltaPersonalizad.setDisable(true);
+    }
+
+    private void alertaCorrecta(){
+        alert = alerta.alerta("Mascotas ", null, "Mascota Consulta realizada con Éxito", "INFORMATION");
+            alert.getDialogPane().getScene().getWindow();
+            ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+            alert.showAndWait();
+    }
+    private void alertaIncorrecta(){
+         alert = alerta.alerta("Mascota ", null, "Error al consultar verifque el campo", "ERROR");
+            alert.getDialogPane().getScene().getWindow();
+            ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+            alert.showAndWait();
+    }
+    @FXML
+    private void consultaPersonalida(ActionEvent event) {
+        boolean resp;
+         ObservableList<Mascota> obs = null;
+          ObservableList<Mascota> obs2 = FXCollections.observableArrayList();
+          
+         switch (cmbTipoConsulta.getSelectionModel().getSelectedIndex()){
+            case 1 :
+               perroBD = new PerroBD();
+                mascotaPersonalizada=perroBD.consulta1(txtNombreMascota.getText());
+                
+                obs2.add(mascotaPersonalizada);
+                //obs = perroBD.consulta1(txtNombreMascota.getText());
+                this.tblMascotas.setItems(obs2);
+
+                System.out.println(""+perroBD.consulta1(txtNombreMascota.getText()));
+                resp=mascotaPersonalizada.isEstado();
+                System.out.println(""+resp);
+                if(resp==true){
+                    alertaCorrecta();
+                }else{
+                     alertaIncorrecta();
+                }
+                break;
+            case 2 :
+                 mascotaPersonalizada=perroBD.consulta2(txtNombreMascota.getText(), txtDescripcionMascota.getText());
+                 MascotaOL.add(mascotaPersonalizada);
+                resp=mascotaPersonalizada.isEstado();
+                 if(resp){
+                    alertaCorrecta();
+                }else{
+                       alertaIncorrecta();
+                }
+                break;
+            case 3 : 
+                 mascotaPersonalizada=perroBD.consulta3(txtNombreMascota.getText(),txtAnio.getValue().toString() );
+                 MascotaOL.add(mascotaPersonalizada);
+                resp=mascotaPersonalizada.isEstado();
+                 if(resp){
+                    alertaCorrecta();
+                }else{
+                   alertaIncorrecta();
+                }
+                break;
+            case 4 :
+                 mascotaPersonalizada=perroBD.consulta4(txtDescripcionMascota.getText());
+                 MascotaOL.add(mascotaPersonalizada);
+                resp=mascotaPersonalizada.isEstado();
+                 if(resp){
+                    alertaCorrecta();
+                }else{
+                   alertaIncorrecta();
+                }
+                break;
+            case 5: 
+                 mascotaPersonalizada=perroBD.consulta5(txtAnio.getValue().toString());
+                 MascotaOL.add(mascotaPersonalizada);
+                resp=mascotaPersonalizada.isEstado();
+                 if(resp){
+                    alertaCorrecta();
+                }else{
+                   alertaIncorrecta();
+                }
+                break; 
+            case 6: 
+                 mascotaPersonalizada=perroBD.consulta6(txtAnio.getValue().toString(),txtDescripcionMascota.getText());
+                 MascotaOL.add(mascotaPersonalizada);
+                resp=mascotaPersonalizada.isEstado();
+                 if(resp){
+                    alertaCorrecta();
+                }else{
+                   alertaIncorrecta();
+                }
+                break; 
+            
+             
+        }
+    }
+
+    @FXML
+    private void seleccionTipoConsulta(ActionEvent event) {
+        switch (cmbTipoConsulta.getSelectionModel().getSelectedIndex()){
+            case 1 :
+                System.out.println(""+cmbTipoConsulta.getSelectionModel().getSelectedItem());
+                txtNombreMascota.setDisable(false);
+                txtDescripcionMascota.setDisable(true);
+                txtAnio.setDisable(true);
+                btnConsultaGeneral.setDisable(true);
+                btnConsutltaPersonalizad.setDisable(false);
+                break;
+            case 2 :
+                System.out.println(""+cmbTipoConsulta.getSelectionModel().getSelectedItem());
+                txtNombreMascota.setDisable(false);
+                txtDescripcionMascota.setDisable(false);
+                txtAnio.setDisable(true);
+                btnConsultaGeneral.setDisable(true);
+                btnConsutltaPersonalizad.setDisable(false);
+                break;
+            case 3 : 
+                System.out.println(""+cmbTipoConsulta.getSelectionModel().getSelectedItem());
+                txtNombreMascota.setDisable(false);
+                txtDescripcionMascota.setDisable(true);
+                txtAnio.setDisable(false);
+                btnConsultaGeneral.setDisable(true);
+                btnConsutltaPersonalizad.setDisable(false);
+                break;
+            case 4 :
+                System.out.println(""+cmbTipoConsulta.getSelectionModel().getSelectedItem());
+                txtNombreMascota.setDisable(true);
+                txtDescripcionMascota.setDisable(false);
+                txtAnio.setDisable(true);
+                btnConsultaGeneral.setDisable(true);
+                btnConsutltaPersonalizad.setDisable(false);
+                break;
+            case 5: 
+                System.out.println(""+cmbTipoConsulta.getSelectionModel().getSelectedItem());
+                txtNombreMascota.setDisable(true);
+                txtDescripcionMascota.setDisable(true);
+                txtAnio.setDisable(false);
+                btnConsultaGeneral.setDisable(true);
+                btnConsutltaPersonalizad.setDisable(false);
+                break; 
+            case 6: 
+                System.out.println(""+cmbTipoConsulta.getSelectionModel().getSelectedItem());
+                txtNombreMascota.setDisable(true);
+                txtDescripcionMascota.setDisable(false);
+                txtAnio.setDisable(false);
+                btnConsultaGeneral.setDisable(true);
+                btnConsutltaPersonalizad.setDisable(false);
+                break; 
+            
+             
+        }
     }
 
 }

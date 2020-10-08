@@ -58,7 +58,7 @@ public class ClienteBD {
     }
     
     
-    public void modificarCliente(String cedula, String nombre, String apellido, String convencional, String celular,
+    public boolean modificarCliente(String cedula, String nombre, String apellido, String convencional, String celular,
             String direccion, String email) {
             String queryModificar = ("UPDATE Cliente SET Id_Cliente='"+cedula+"',Nombre = '"+nombre+"',Apellido='"+apellido+"',Telf_Convencional='"+convencional+"',Telf_Celular='"+celular+"',Direccion='"+direccion+"',Email='"+email+"' WHERE id_cliente='"+cedula+"'");
             try {
@@ -72,7 +72,9 @@ public class ClienteBD {
 
             } catch (SQLException e) {
                 System.out.println(e);
+                estado =false;
             }
+            return estado;
     }
     
     
@@ -127,14 +129,17 @@ public class ClienteBD {
         return resultado;
     }
     
-     public void eliminarCliente(String id){
+     public boolean eliminarCliente(String id){
         try {                      
             PreparedStatement stmt;
             stmt = con.prepareStatement("DELETE FROM Cliente WHERE id_cliente='" + id + "'");
             stmt.executeUpdate();
+            estado=true;
              } catch (SQLException ex) {
             Logger.getLogger(ClientesController.class.getName()).log(Level.SEVERE, null, ex);
+            estado=false;
         }
+        return estado;
     }
     
     

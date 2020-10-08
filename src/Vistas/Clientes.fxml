@@ -84,12 +84,12 @@
                         </Pane>
                         <TableView fx:id="tblClientes" prefHeight="220.0" prefWidth="831.0">
                           <columns>
-                            <TableColumn fx:id="colCedula" prefWidth="57.0" text="Cedula" />
-                            <TableColumn fx:id="colNombres" prefWidth="103.0" text="Nombres" />
-                              <TableColumn fx:id="colApellidos" prefWidth="94.0" text="Apellidos" />
-                              <TableColumn fx:id="colDireccion" prefWidth="247.0" text="Domicilio" />
-                              <TableColumn fx:id="colTelefono" prefWidth="99.0" text="Teléfono" />
-                              <TableColumn fx:id="colConvencional" prefWidth="107.66668701171875" text="Convencional" />
+                            <TableColumn fx:id="colCedula" prefWidth="93.0" text="Cedula" />
+                            <TableColumn fx:id="colNombres" prefWidth="98.0" text="Nombres" />
+                              <TableColumn fx:id="colApellidos" prefWidth="121.0" text="Apellidos" />
+                              <TableColumn fx:id="colDireccion" prefWidth="211.0" text="Domicilio" />
+                              <TableColumn fx:id="colTelefono" prefWidth="104.0" text="Teléfono" />
+                              <TableColumn fx:id="colConvencional" prefWidth="81.0" text="Convencional" />
                               <TableColumn fx:id="colCorreo" prefWidth="106.6666259765625" text="Correo" />
                           </columns>
                         </TableView>
@@ -132,9 +132,17 @@
                                  </font>
                               </Label>
                               <DatePicker fx:id="txtAnio" layoutX="428.0" layoutY="110.0" promptText="Seleccione Fecha" />
-                              <Button fx:id="btnActualizarMascota" layoutX="139.0" layoutY="168.0" mnemonicParsing="false" onAction="#actualizarDatosMascotas" text="Actualizar Datos de la Mascota" />
-                              <Button fx:id="btnNuevaMascota" layoutX="512.0" layoutY="168.0" mnemonicParsing="false" onAction="#nuevaMascota" prefHeight="25.0" prefWidth="193.0" text="Nueva Mascota" />
-                              <ComboBox fx:id="cmbTipoConsulta" layoutX="630.0" layoutY="18.0" prefWidth="150.0" />
+                              <Button fx:id="btnActualizarMascota" layoutX="51.0" layoutY="173.0" mnemonicParsing="false" onAction="#actualizarDatosMascotas" text="Actualizar Datos de la Mascota" />
+                              <Button fx:id="btnNuevaMascota" layoutX="609.0" layoutY="170.0" mnemonicParsing="false" onAction="#nuevaMascota" prefHeight="25.0" prefWidth="193.0" text="Cargar a la Base de Datos" />
+                              <ComboBox fx:id="cmbTipoConsulta" layoutX="633.0" layoutY="18.0" onAction="#seleccionTipoConsulta" prefWidth="150.0" promptText="Seleccione" />
+                              <Button fx:id="btnConsultaGeneral" layoutX="248.0" layoutY="171.0" mnemonicParsing="false" onAction="#consultaMascotasGeneral" text="Consulta General de Mascotas" />
+                              <Button fx:id="btnAgregarMascota" layoutX="291.0" layoutY="18.0" mnemonicParsing="false" onAction="#agregarMascota" prefHeight="25.0" prefWidth="138.0" text="Agregar Mascota" />
+                              <Button fx:id="btnConsutltaPersonalizad" layoutX="437.0" layoutY="171.0" mnemonicParsing="false" onAction="#consultaPersonalida" prefHeight="25.0" prefWidth="165.0" text="Consulta Personalizada" />
+                              <Label layoutX="456.0" layoutY="22.0" text="Seleccione el Tipo de Consulta:" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </Pane>
                         <TableView fx:id="tblMascotas" prefHeight="222.0" prefWidth="820.0" stylesheets="@../Css/clientes.css">
