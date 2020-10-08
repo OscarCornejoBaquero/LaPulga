@@ -55,6 +55,33 @@ public class Lavados {
         }
         return obs;
     }
+      public ObservableList<String>  consultaEmpleadoCombo(){
+       ObservableList<String> obs = FXCollections.observableArrayList();
+        mascotas = new Mascota();
+        //System.out.println("Aqui");
+        try {
+            String sql = "select empleado.nombre_empleado\n" +
+"from empleado";
+              //      System.out.println("Aca");
+                    
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery(sql);
+            
+            //System.out.println("hasta aquio");
+            while (rs.next()) {
+                
+                String nombrePerro = rs.getString(1);
+               // System.out.println(""+nombrePerro);
+//                String idCLiente = rs.getString(2);
+                //mascotas = new Mascota(nombrePerro);
+                //System.out.println(""+mascotas.toString());
+                  obs.add(nombrePerro);
+            }
+            } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return obs;
+    }
     
     
 }

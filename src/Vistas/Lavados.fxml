@@ -34,11 +34,6 @@
                                     <Font name="Arial Bold" size="24.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="6.0" layoutY="17.0" text="Código Lavado" textFill="WHITE">
-                                 <font>
-                                    <Font name="Arial Black" size="12.0" />
-                                 </font>
-                              </Label>
                               <Label layoutX="200.0" layoutY="55.0" text="Cedula Cliente:" textFill="WHITE">
                                  <font>
                                     <Font name="Arial Black" size="12.0" />
@@ -49,8 +44,7 @@
                                     <Font name="Arial Black" size="12.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtCodigoLavado" editable="false" layoutX="120.0" layoutY="13.0" prefHeight="25.0" prefWidth="74.0" />
-                              <TextField fx:id="txtCedulaCliente" layoutX="302.0" layoutY="52.0" onAction="#consultaCliente" prefHeight="25.0" prefWidth="141.0" promptText="Ingresar y dar ENTER" />
+                              <TextField fx:id="txtCedulaCliente" editable="false" layoutX="302.0" layoutY="52.0" onAction="#consultaCliente" prefHeight="25.0" prefWidth="141.0" promptText="Ingresar y dar ENTER" />
                               <ComboBox fx:id="cmbMascota" layoutX="606.0" layoutY="40.0" prefHeight="25.0" prefWidth="163.0" promptText="Seleccione" />
                               <Label layoutX="22.0" layoutY="104.0" text="Fecha de Lavado" textFill="WHITE">
                                  <font>
@@ -109,14 +103,14 @@
                               <ComboBox fx:id="cmbEmpleado" layoutX="372.0" layoutY="234.0" prefWidth="150.0" promptText="Seleccione" />
                               <Button fx:id="btnAgendar" layoutX="210.0" layoutY="281.0" mnemonicParsing="false" onAction="#agendarLavado" text="Agendar Lavado" />
                               <Button fx:id="btnNuevoLavado" layoutX="463.0" layoutY="281.0" mnemonicParsing="false" onAction="#nuevoLavado" text="Nuevo Lavado" />
-                              <Button fx:id="btnConsul" layoutX="114.0" layoutY="53.0" mnemonicParsing="false" onAction="#consultarClien" text="Button" />
+                              <Button fx:id="btnConsul" layoutX="49.0" layoutY="51.0" mnemonicParsing="false" onAction="#consultarClien" text="Consultar Cliente" />
                            </children>
                         </Pane>
                         <Pane prefHeight="225.0" prefWidth="797.0">
                            <children>
                               <TableView fx:id="twAgendamientoLavado" prefHeight="158.0" prefWidth="795.0">
                                 <columns>
-                                  <TableColumn fx:id="coCodLavado" prefWidth="103.0" text="Cod. Lavado" />
+                                  <TableColumn fx:id="coCodBatea" prefWidth="103.0" text="Cod. Batea" />
                                   <TableColumn fx:id="coCliente" prefWidth="107.0" text="Cliente" />
                                     <TableColumn fx:id="coMascota" prefWidth="114.0" text="Mascota" />
                                     <TableColumn fx:id="coFechaLavado" prefWidth="103.33332824707031" text="Fecha de Lavado" />

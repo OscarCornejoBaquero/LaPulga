@@ -1,12 +1,15 @@
 
 package Controladores;
 
+import BaseDatos.ClienteBD;
 import BaseDatos.Lavados;
 import BaseDatos.PerroBD;
 import Objetos.Clientes;
 import Objetos.Mascota;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,11 +24,10 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class LavadosController implements Initializable {
 
-    @FXML
-    private TextField txtCodigoLavado;
     @FXML
     private TextField txtCedulaCliente;
     @FXML
@@ -49,15 +51,13 @@ public class LavadosController implements Initializable {
     @FXML
     private CheckBox cheAcondicionador;
     @FXML
-    private ComboBox<?> cmbEmpleado;
+    private ComboBox<String> cmbEmpleado;
     @FXML
     private Button btnAgendar;
     @FXML
     private Button btnNuevoLavado;
     @FXML
     private TableView<?> twAgendamientoLavado;
-    @FXML
-    private TableColumn coCodLavado;
     @FXML
     private TableColumn coCliente;
     @FXML
@@ -129,12 +129,88 @@ public class LavadosController implements Initializable {
     private Lavados lavados;
     @FXML
     private Button btnConsul;
- 
+   private ObservableList<Clientes> clientesOL;
+    private ObservableList<Mascota> MascotaOL;
+     private ObservableList<String> Horario;
+    private ClienteBD clienteBD;
+    @FXML
+    private TableColumn<?, ?> coCodBatea;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        inicializarTablaClientes() ;
+        seleccionarItemTablaClientes();
+        rellenarTabla();
+        comboHorario();
+        rellenarEmpleado();
     }    
 
+    private void rellenarEmpleado(){
+        ObservableList<String> obs = null;
+       lavados = new Lavados();
+         obs=lavados.consultaEmpleadoCombo();
+         this.cmbEmpleado.setItems(obs);
+    }
+    private void rellenarTabla() {
+        ObservableList<Clientes> obs = null;
+        clienteBD = new ClienteBD();
+        obs = clienteBD.consulta();
+        this.tblClientes.setItems(obs);
+        
+    }
+     private void comboHorario() {
+        Horario = FXCollections.observableArrayList();
+        Horario.add("09:00");
+        Horario.add("09:30");
+        Horario.add("10:00");
+        Horario.add("10:30");
+        Horario.add("11:00");
+        Horario.add("11:30");
+        Horario.add("12:00");
+        Horario.add("14:00");
+        Horario.add("14:30");
+        Horario.add("15:00");
+        this.cmbHora.setItems(Horario);
+        
+        
+    }
+     
+    private void inicializarTablaClientes() {
+        clientesOL = FXCollections.observableArrayList();
+        this.colCedula.setCellValueFactory(new PropertyValueFactory<Clientes, String>("cedula"));
+        this.colNombres.setCellValueFactory(new PropertyValueFactory<Clientes, String>("nombre"));
+        this.colApellidos.setCellValueFactory(new PropertyValueFactory<Clientes, String>("apellido"));
+        this.colDireccion.setCellValueFactory(new PropertyValueFactory<Clientes, String>("domicilio"));
+        this.colTelefono.setCellValueFactory(new PropertyValueFactory<Clientes, String>("telefono"));
+        this.colConvencional.setCellValueFactory(new PropertyValueFactory<Clientes, String>("convencional"));
+        this.colCorreo.setCellValueFactory(new PropertyValueFactory<Clientes, String>("correo"));
+        this.tblClientes.setItems(clientesOL);
+    }
+
+    public void seleccionarItemTablaClientes() {
+        tblClientes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
+                if (tblClientes.getSelectionModel().getSelectedItem() != null) {
+                    Clientes clientes = tblClientes.getSelectionModel().getSelectedItem();
+                    
+                    txtCedulaCliente1.setText(clientes.getCedula());
+                    
+                }
+            }
+        });
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     @FXML
     private void consultaCliente(ActionEvent event) {
      
