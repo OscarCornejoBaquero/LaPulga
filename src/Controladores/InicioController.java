@@ -92,7 +92,7 @@ public class InicioController implements Initializable {
                     stage.initOwner(((Node)event.getSource()).getScene().getWindow());
                     stage.show();
                     
-                    System.out.println(datos);
+                   // System.out.println(datos);
                 } catch (IOException ex) {
                     Logger.getLogger(InicioController.class.getName()).log(Level.SEVERE, null, ex);
                 }

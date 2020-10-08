@@ -134,15 +134,16 @@
                               <DatePicker fx:id="txtAnio" layoutX="428.0" layoutY="110.0" promptText="Seleccione Fecha" />
                               <Button fx:id="btnActualizarMascota" layoutX="139.0" layoutY="168.0" mnemonicParsing="false" onAction="#actualizarDatosMascotas" text="Actualizar Datos de la Mascota" />
                               <Button fx:id="btnNuevaMascota" layoutX="512.0" layoutY="168.0" mnemonicParsing="false" onAction="#nuevaMascota" prefHeight="25.0" prefWidth="193.0" text="Nueva Mascota" />
+                              <ComboBox fx:id="cmbTipoConsulta" layoutX="630.0" layoutY="18.0" prefWidth="150.0" />
                            </children>
                         </Pane>
-                        <TableView prefHeight="222.0" prefWidth="820.0" stylesheets="@../Css/clientes.css">
+                        <TableView fx:id="tblMascotas" prefHeight="222.0" prefWidth="820.0" stylesheets="@../Css/clientes.css">
                           <columns>
-                            <TableColumn prefWidth="101.66666412353516" text="  Identificación &#10;      Mascota" />
-                            <TableColumn prefWidth="197.33333587646484" text="Dueño" />
-                              <TableColumn prefWidth="193.3333282470703" text="Nombre de la Mascota" />
-                              <TableColumn prefWidth="183.0" text="Descripción de la Mascota" />
-                              <TableColumn prefWidth="142.99996948242188" text="Fecha de Nacimiento" />
+                            <TableColumn fx:id="coIdMascota" prefWidth="101.66666412353516" text="  Identificación &#10;      Mascota" />
+                            <TableColumn fx:id="coIdCliente" prefWidth="197.33333587646484" text="Dueño" />
+                              <TableColumn fx:id="coNombreMascota" prefWidth="193.3333282470703" text="Nombre de la Mascota" />
+                              <TableColumn fx:id="coDescripcion" prefWidth="183.0" text="Descripción de la Mascota" />
+                              <TableColumn fx:id="coFechaMascota" prefWidth="142.99996948242188" text="Fecha de Nacimiento" />
                           </columns>
                         </TableView>
                         <Pane prefHeight="53.0" prefWidth="820.0">

@@ -19,7 +19,7 @@ public class Autentificacion {
     public Autentificacion() {
         con = conexion.conectar();
     }
-
+//Consulta de usuarios
     public Usuarios autentificar(String usuario, String pass) {
         boolean estado;
         try {

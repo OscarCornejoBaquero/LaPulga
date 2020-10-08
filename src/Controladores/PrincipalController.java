@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Controladores;
 
 import BaseDatos.Autentificacion;
@@ -62,7 +58,7 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void accionClientes(MouseEvent event) {
-        try {
+    try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Vistas/Clientes.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             stage = stages.nuevoStage(root1, "Lavadero de Perros ->La Pulga Limpia<- Usuario Activo: "+usuarios.getNombre()+" "+usuarios.getApellido(), "/Imagenes/iconoLaPulga.png");
@@ -72,7 +68,6 @@ public class PrincipalController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
 
     @FXML
@@ -110,6 +105,18 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void accionReportes(MouseEvent event) {
+              
+              try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Vistas/Reportes.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            stage = stages.nuevoStage(root1, "Lavadero de Perros ->La Pulga Limpia<- Usuario Activo: "+usuarios.getNombre()+" "+usuarios.getApellido(), "/Imagenes/iconoLaPulga.png");
+            stage.initOwner(((Node)event.getSource()).getScene().getWindow());
+            stage.show();
+            
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     @FXML

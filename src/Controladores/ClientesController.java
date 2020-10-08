@@ -2,9 +2,14 @@ package Controladores;
 
 import BaseDatos.Autentificacion;
 import BaseDatos.ClienteBD;
+import BaseDatos.PerroBD;
 import Objetos.Clientes;
+import Objetos.Mascota;
 import Objetos.Usuarios;
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -42,7 +47,9 @@ public class ClientesController implements Initializable {
     private ClienteBD clienteBD = new ClienteBD();
     Clientes clientes;
     private ObservableList<String> tipoClientes;
+    private ObservableList<String> tipoConsulta;
     private ObservableList<Clientes> clientesOL;
+    private ObservableList<Mascota> MascotaOL;
     @FXML
     private Tab rClientes;
     @FXML
@@ -83,7 +90,7 @@ public class ClientesController implements Initializable {
     private Button btnEliminar;
     @FXML
     private Button btnLimpiar;
-     @FXML
+    @FXML
     private Button btnActivarTxt;
 
 //Seccion de la pestaña mascotas
@@ -111,7 +118,22 @@ public class ClientesController implements Initializable {
     private TextField txtTelefonoConvencional;
     @FXML
     private TableColumn colConvencional;
-   
+    PerroBD perroBD;
+    @FXML
+    private TableView<Mascota> tblMascotas;
+    @FXML
+    private TableColumn coIdMascota;
+    @FXML
+    private TableColumn coIdCliente;
+    @FXML
+    private TableColumn coNombreMascota;
+    @FXML
+    private TableColumn coDescripcion;
+    @FXML
+    private TableColumn coFechaMascota;
+    @FXML
+    private ComboBox<String> cmbTipoConsulta;
+
     //Inicio de la ventana
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -124,14 +146,27 @@ public class ClientesController implements Initializable {
         rellenarTabla();
         inicioMascotas();
         seleccionarItemTablaClientes();
+        comboTipoConsulta();
         txtCedula.setOnKeyTyped(event -> SoloNumerosEnteros(event));
         txtTelefono.setOnKeyTyped(event -> SoloNumerosEnteros(event));
         txtTelefonoConvencional.setOnKeyTyped(event -> SoloNumerosEnteros(event));
         txtCedulaConsulta.setOnKeyTyped(event -> SoloNumerosEnteros(event));
-        
-        
+
     }
     //Para Agregar la imagenen a la paleta
+private void comboTipoConsulta() {
+        tipoConsulta = FXCollections.observableArrayList();
+        tipoConsulta.add(" ");
+        tipoConsulta.add("NOMBRE");
+        tipoConsulta.add("NOMBRE Y DESCRIPCION");
+        tipoConsulta.add("NOMBRE Y AÑO DE NACIMIENTO");
+        tipoConsulta.add("DESCRIPCION");
+        tipoConsulta.add("AÑO DE NACIMIENTO");
+        tipoConsulta.add("DESCRIPCION Y AÑO DE NACIMIENTO");
+        
+               
+        this.cmbTipoConsulta.setItems(tipoConsulta);
+    }
 
     private static ImageView buildImage(String imgPatch) {
         Image i = new Image(imgPatch);
@@ -144,7 +179,7 @@ public class ClientesController implements Initializable {
     //Seccion para Iniciar controles de Clientes
 
     private void inicioControles() {
-        reutilizarControles(true, true, true, true, true, true, true, true, true,true);
+        reutilizarControles(true, true, true, true, true, true, true, true, true, true);
     }
 
     private void reutilizarControles(boolean a, boolean b, boolean c, boolean d, boolean e, boolean f, boolean g, boolean h, boolean i, boolean j) {
@@ -166,18 +201,18 @@ public class ClientesController implements Initializable {
         obs = clienteBD.consulta();
         this.tblClientes.setItems(obs);
     }
-    
-public void SoloNumerosEnteros(KeyEvent keyEvent) {
-    try{
-        char key = keyEvent.getCharacter().charAt(0);
 
-        if (!Character.isDigit(key))
-            keyEvent.consume();
+    public void SoloNumerosEnteros(KeyEvent keyEvent) {
+        try {
+            char key = keyEvent.getCharacter().charAt(0);
 
-    } catch (Exception ex){ }
-}
+            if (!Character.isDigit(key)) {
+                keyEvent.consume();
+            }
 
-
+        } catch (Exception ex) {
+        }
+    }
 
     private void inicializarTablaClientes() {
         clientesOL = FXCollections.observableArrayList();
@@ -190,6 +225,7 @@ public void SoloNumerosEnteros(KeyEvent keyEvent) {
         this.colCorreo.setCellValueFactory(new PropertyValueFactory<Clientes, String>("correo"));
         this.tblClientes.setItems(clientesOL);
     }
+
     public void seleccionarItemTablaClientes() {
         tblClientes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
@@ -204,8 +240,8 @@ public void SoloNumerosEnteros(KeyEvent keyEvent) {
                     txtTelefonoConvencional.setText(clientes.getConvencional());
                     txtDireccion.setText(clientes.getDomicilio());
                     txtCorreo.setText(clientes.getCorreo());
-                    
-                    btnNuevaMascota.setDisable(false); 
+
+                    btnNuevaMascota.setDisable(false);
                     reutilizarControles(true, true, true, true, true, true, true, true, true, false);
                 }
             }
@@ -225,14 +261,14 @@ public void SoloNumerosEnteros(KeyEvent keyEvent) {
     private void seleccionarTipo(ActionEvent event) {
         if (cmbEstado.getSelectionModel().getSelectedIndex() == 1) {
 
-            reutilizarControles(false, true, true, true, true, true, true, true, true,false);
+            reutilizarControles(false, true, true, true, true, true, true, true, true, false);
             btnNuevaMascota.setDisable(false);
 
         }
         if (cmbEstado.getSelectionModel().getSelectedIndex() == 2) {
 
-            reutilizarControles(false, false, false, false, false, false, true, false, false,true);
-           btnNuevaMascota.setDisable(false);
+            reutilizarControles(false, false, false, false, false, false, true, false, false, true);
+            btnNuevaMascota.setDisable(false);
         }
         if (cmbEstado.getSelectionModel().getSelectedIndex() == 0) {
             inicioControles();
@@ -253,10 +289,10 @@ public void SoloNumerosEnteros(KeyEvent keyEvent) {
 
     @FXML
     private void actualizarCliente(ActionEvent event) {
-        
+
         clienteBD.modificarCliente(txtCedula.getText(), txtNombre.getText(), txtApellido.getText(),
                 txtTelefonoConvencional.getText(), txtTelefono.getText(), txtDireccion.getText(), txtCorreo.getText());
-          rellenarTabla();
+        rellenarTabla();
     }
 
     @FXML
@@ -265,39 +301,39 @@ public void SoloNumerosEnteros(KeyEvent keyEvent) {
         resp = clienteBD.insertarCliente(txtCedula.getText(), txtNombre.getText(), txtApellido.getText(),
                 txtTelefonoConvencional.getText(), txtTelefono.getText(), txtDireccion.getText(), txtCorreo.getText());
         if (resp) {
-            
+
             alert = alerta.alerta("Cliente ", null, "Cliente Agregado Correctamente", "INFORMATION");
-                alert.getDialogPane().getScene().getWindow();
-                ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
-                alert.showAndWait();
-            
-            
+            alert.getDialogPane().getScene().getWindow();
+            ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+            alert.showAndWait();
+
         } else {
             alert = alerta.alerta("Cliente ", null, "Error al Guardar Cliente", "ERROR");
-                alert.getDialogPane().getScene().getWindow();
-                ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
-                alert.showAndWait();
-            
+            alert.getDialogPane().getScene().getWindow();
+            ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+            alert.showAndWait();
+
         }
-            rellenarTabla();
+        rellenarTabla();
     }
 
     @FXML
     private void eliminarCliente(ActionEvent event) {
         clienteBD.eliminarCliente(txtCedula.getText());
         alert = alerta.alerta("Cliente ", null, "Cliente Eliminado Correctamente", "INFORMATION");
-                alert.getDialogPane().getScene().getWindow();
-                ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
-                alert.showAndWait();
+        alert.getDialogPane().getScene().getWindow();
+        ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+        alert.showAndWait();
         rellenarTabla();
-        
+
     }
 
     @FXML
     private void agregarMascotaTAB(ActionEvent event) {
         tabGeneral.getSelectionModel().select(rMascotas);
         txtCedulaConsulta.setText(txtCedula.getText());
-     
+        rellenarTablaPerro();
+
     }
 
     @FXML
@@ -309,17 +345,17 @@ public void SoloNumerosEnteros(KeyEvent keyEvent) {
         txtCorreo.setText("");
         txtDireccion.setText("");
         txtTelefonoConvencional.setText("");
-        
+
     }
-    
-      @FXML
+
+    @FXML
     private void editarCliente(ActionEvent event) {
-        
-                  alert = alerta.alerta("Cliente ", null, "Se va a Proceder a Editar el Cliente", "CONFIRMATION");
-                alert.getDialogPane().getScene().getWindow();
-                ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
-                alert.showAndWait();
-          reutilizarControles(false, false, false, false, false, false, false, true, false, false);
+
+        alert = alerta.alerta("Cliente ", null, "Se va a Proceder a Editar el Cliente", "CONFIRMATION");
+        alert.getDialogPane().getScene().getWindow();
+        ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+        alert.showAndWait();
+        reutilizarControles(false, false, false, false, false, false, false, true, false, false);
     }
 
     /*
@@ -333,7 +369,7 @@ public void SoloNumerosEnteros(KeyEvent keyEvent) {
         txtAnio.setDisable(true);
         btnActualizarMascota.setDisable(true);
         btnNuevaMascota.setDisable(true);
-
+        inicializarTablaMascotas();
     }
 
     @FXML
@@ -361,6 +397,24 @@ public void SoloNumerosEnteros(KeyEvent keyEvent) {
 
     @FXML
     private void nuevaMascota(ActionEvent event) {
+        boolean resp;
+        perroBD = new PerroBD();
+        resp = perroBD.insertarPerro(txtCedulaConsulta.getText(), txtNombreMascota.getText(), txtDescripcionMascota.getText(), txtAnio.getValue().toString());
+        if (resp) {
+
+            alert = alerta.alerta("Mascotas ", null, "Mascota Agregada Correctamente", "INFORMATION");
+            alert.getDialogPane().getScene().getWindow();
+            ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+            alert.showAndWait();
+
+        } else {
+            alert = alerta.alerta("Mascota ", null, "Error al Guardar Mascota", "ERROR");
+            alert.getDialogPane().getScene().getWindow();
+            ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+            alert.showAndWait();
+
+        }
+        rellenarTablaPerro();
     }
 
     @FXML
@@ -371,6 +425,41 @@ public void SoloNumerosEnteros(KeyEvent keyEvent) {
     private void limpiarVentanaMascotas(ActionEvent event) {
     }
 
-  
+    private void rellenarTablaPerro() {
+        ObservableList<Mascota> obs = null;
+        perroBD = new PerroBD();
+        obs = perroBD.consultaMascotas();
+        this.tblMascotas.setItems(obs);
+    }
+
+    private void inicializarTablaMascotas() {
+        MascotaOL = FXCollections.observableArrayList();
+        this.coIdMascota.setCellValueFactory(new PropertyValueFactory<Mascota, Integer>("id"));
+        this.coIdCliente.setCellValueFactory(new PropertyValueFactory<Mascota, Integer>("dueño"));
+        this.coNombreMascota.setCellValueFactory(new PropertyValueFactory<Mascota, String>("nombreMascota"));
+        this.coDescripcion.setCellValueFactory(new PropertyValueFactory<Mascota, String>("descripcion"));
+        this.coFechaMascota.setCellValueFactory(new PropertyValueFactory<Mascota, String>("fecha"));
+
+        this.tblMascotas.setItems(MascotaOL);
+    }
+
+    public void seleccionarItemTablaMascota() {
+        tblMascotas.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
+                if (tblMascotas.getSelectionModel().getSelectedItem() != null) {
+                    Mascota mascota = tblMascotas.getSelectionModel().getSelectedItem();
+                    txtCedulaConsulta.setDisable(true);
+                    //txtCedulaConsulta.setText(clientes.getCedula());
+                    txtNombreMascota.setText(mascota.getNombreMascota());
+                    txtDescripcionMascota.setText(mascota.getDescripcion());
+
+                    btnNuevaMascota.setDisable(false);
+                    btnActualizarMascota.setDisable(false);
+                    reutilizarControles(true, true, true, true, true, true, true, true, true, false);
+                }
+            }
+        });
+    }
 
 }
