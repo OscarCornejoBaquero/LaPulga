@@ -52,18 +52,12 @@
                                  </font>
                               </Label>
                               <DatePicker fx:id="fechaLavado" layoutX="140.0" layoutY="100.0" prefHeight="25.0" prefWidth="141.0" promptText="Seleccione" />
-                              <Label layoutX="299.0" layoutY="104.0" text="Hora del Lavado:" textFill="WHITE">
+                              <Label layoutX="373.0" layoutY="104.0" text="Hora del Lavado:" textFill="WHITE">
                                  <font>
                                     <Font name="Arial Black" size="12.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="cmbHora" layoutX="417.0" layoutY="100.0" prefHeight="25.0" prefWidth="99.0" promptText="Seleccione" />
-                              <Label layoutX="550.0" layoutY="104.0" text="Código Batea" textFill="WHITE">
-                                 <font>
-                                    <Font name="Arial Black" size="12.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="codigoBatea" layoutX="644.0" layoutY="100.0" promptText="Ingrese" />
+                              <ComboBox fx:id="cmbHora" layoutX="491.0" layoutY="100.0" prefHeight="25.0" prefWidth="99.0" promptText="Seleccione" />
                               <CheckBox fx:id="cheJabon" layoutX="76.0" layoutY="192.0" mnemonicParsing="false" text="Jabón" textFill="WHITE">
                                  <font>
                                     <Font name="Arial" size="12.0" />

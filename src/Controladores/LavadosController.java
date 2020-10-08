@@ -1,11 +1,14 @@
 
 package Controladores;
 
+import BaseDatos.Autentificacion;
 import BaseDatos.ClienteBD;
-import BaseDatos.Lavados;
+import BaseDatos.LavadosBD;
 import BaseDatos.PerroBD;
 import Objetos.Clientes;
+import Objetos.Lavados;
 import Objetos.Mascota;
+import Objetos.Usuarios;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -15,6 +18,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -25,9 +29,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class LavadosController implements Initializable {
-
+   Autentificacion autentificacion = new Autentificacion();
+    Usuarios usuarios;
+    private Alert alert = new Alert(Alert.AlertType.NONE);
+    Alertas alerta = new Alertas();
+    Stage stage = new Stage();
+    Stages stages = new Stages();
     @FXML
     private TextField txtCedulaCliente;
     @FXML
@@ -36,8 +46,6 @@ public class LavadosController implements Initializable {
     private DatePicker fechaLavado;
     @FXML
     private ComboBox<String> cmbHora;
-    @FXML
-    private TextField codigoBatea;
     @FXML
     private CheckBox cheJabon;
     @FXML
@@ -57,7 +65,7 @@ public class LavadosController implements Initializable {
     @FXML
     private Button btnNuevoLavado;
     @FXML
-    private TableView<?> twAgendamientoLavado;
+    private TableView<Lavados> twAgendamientoLavado;
     @FXML
     private TableColumn coCliente;
     @FXML
@@ -126,15 +134,16 @@ public class LavadosController implements Initializable {
     private TabPane tabGeneral;
     @FXML
     private Button btnAgendarLavado;
-    private Lavados lavados;
+    private LavadosBD lavados;
     @FXML
     private Button btnConsul;
    private ObservableList<Clientes> clientesOL;
+   private ObservableList<Lavados> lavadosOL;
     private ObservableList<Mascota> MascotaOL;
      private ObservableList<String> Horario;
     private ClienteBD clienteBD;
     @FXML
-    private TableColumn<?, ?> coCodBatea;
+    private TableColumn coCodBatea;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         inicializarTablaClientes() ;
@@ -142,11 +151,13 @@ public class LavadosController implements Initializable {
         rellenarTabla();
         comboHorario();
         rellenarEmpleado();
+        inicializarTablaLavados();
+        rellenarTabla2();
     }    
 
     private void rellenarEmpleado(){
         ObservableList<String> obs = null;
-       lavados = new Lavados();
+       lavados = new LavadosBD();
          obs=lavados.consultaEmpleadoCombo();
          this.cmbEmpleado.setItems(obs);
     }
@@ -157,6 +168,13 @@ public class LavadosController implements Initializable {
         this.tblClientes.setItems(obs);
         
     }
+    private void rellenarTabla2() {
+        ObservableList<Lavados> obs = null;
+        lavados = new LavadosBD();
+        obs = lavados.consultaLavados();
+        this.twAgendamientoLavado.setItems(obs);
+    }
+    
      private void comboHorario() {
         Horario = FXCollections.observableArrayList();
         Horario.add("09:00");
@@ -200,7 +218,17 @@ public class LavadosController implements Initializable {
         });
     }
 
-    
+      private void inicializarTablaLavados() {
+        lavadosOL = FXCollections.observableArrayList();
+        this.coCodBatea.setCellValueFactory(new PropertyValueFactory<Lavados, Integer>("codigoBatea"));
+        this.coCliente.setCellValueFactory(new PropertyValueFactory<Lavados, String>("cliente"));
+        this.coMascota.setCellValueFactory(new PropertyValueFactory<Lavados, String>("nombrePerro"));
+        this.coFechaLavado.setCellValueFactory(new PropertyValueFactory<Lavados, String>("fecha"));
+        this.coHoraLavado.setCellValueFactory(new PropertyValueFactory<Lavados, String>("hora"));
+        this.coProductos.setCellValueFactory(new PropertyValueFactory<Lavados, String>("productos"));
+        this.coEmpleado.setCellValueFactory(new PropertyValueFactory<Lavados, String>("empleado"));
+        this.twAgendamientoLavado.setItems(lavadosOL);
+    }
     
     
     
@@ -217,8 +245,38 @@ public class LavadosController implements Initializable {
         
     }
 
+  
     @FXML
     private void agendarLavado(ActionEvent event) {
+        lavados = new LavadosBD();
+        String productos="";
+        if(cheJabon.isSelected()){ productos="Jabon,"; }
+        if(cheShampoo.isSelected()){productos=productos+" Shampoo,"; }
+        if(chePerfume.isSelected()){productos=productos+" Perfume,"; }
+        if(cheTratamiento.isSelected()){productos=productos+" Tratamiento,"; }
+        if(cheAniparasitarios.isSelected()){productos=productos+" Antiparacitario,"; }
+        if(cheAcondicionador.isSelected()){productos=productos+" Spray Acondicionador"; }
+        
+        int codiPerro= lavados.codigoMascota(cmbMascota.getSelectionModel().getSelectedItem());
+        boolean estado;
+        
+        estado=lavados.insertarLavados(txtCedulaCliente.getText(), codiPerro, fechaLavado.getValue().toString(), cmbHora.getSelectionModel().getSelectedItem(), productos, cmbEmpleado.getSelectionModel().getSelectedItem());
+        if (estado) {
+
+            alert = alerta.alerta("Mascotas ", null, "Lavado Agendado Correctamente", "INFORMATION");
+            alert.getDialogPane().getScene().getWindow();
+            ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+            alert.showAndWait();
+
+        } else {
+            alert = alerta.alerta("Mascota ", null, "Error al Guardar Lavado", "ERROR");
+            alert.getDialogPane().getScene().getWindow();
+            ((Stage) alert.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+            alert.showAndWait();
+
+        }
+        rellenarTabla2();
+        
     }
 
     @FXML
@@ -243,7 +301,7 @@ public class LavadosController implements Initializable {
          tabGeneral.getSelectionModel().select(tabAgendameinto);
          txtCedulaCliente.setText(txtCedulaCliente1.getText());
         
-        lavados = new Lavados();
+        lavados = new LavadosBD();
          ObservableList<String> obs = null;
          obs=lavados.consultaMascotaCombo(txtCedulaCliente1.getText()); 
          this.cmbMascota.setItems(obs);
@@ -255,5 +313,7 @@ public class LavadosController implements Initializable {
         tabGeneral.getSelectionModel().select(tabCliente);
         txtCedulaCliente1.setText("");
     }
+    
+     
     
 }
